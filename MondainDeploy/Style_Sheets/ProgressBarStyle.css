@@ -1,0 +1,7 @@
+﻿#progressbar {
+    background: #c6c2f6;
+}
+#progressbar .ui-progressbar-value {
+    background: rgb(98, 21, 164);
+    background: rgba(98, 21, 164, 0.79);
+}

@@ -1,0 +1,8 @@
+﻿label {
+    display: inline-block;
+    width: 5em;
+  }
+
+.ui-tooltip {
+    font-size: small;
+}
