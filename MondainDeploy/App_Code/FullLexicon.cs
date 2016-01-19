@@ -185,7 +185,7 @@ namespace MondainDeploy
         public static string AlphagramifyString(string w)
         {
             return string.Concat(w.ToCharArray().OrderBy(x => x));
-        }
+        }   
 
         public static List<string> GetValidAnagrams(string w, Dictionary<string, List<string>> ATW)
         {

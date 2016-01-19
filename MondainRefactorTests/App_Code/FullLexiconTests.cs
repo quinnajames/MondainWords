@@ -62,7 +62,10 @@ namespace MondainDeploy.Tests
         [TestMethod()]
         public void AlphagramifyStringTest()
         {
-            Assert.Fail();
+            string original = "ANABAENA";
+            string expected = "AAAABENN";
+            string actual = FullLexicon.AlphagramifyString(original);
+            Assert.AreEqual(expected, actual, false, "AlphagramifyStringTest failed: strings not equal");
         }
 
         [TestMethod()]
