@@ -71,10 +71,15 @@ namespace MondainDeploy.Tests
         [TestMethod()]
         public void GetValidAnagramsTest()
         {
+            // this needs ATW or a testing lexicon to work
             Assert.Fail();
         }
-
-        [TestMethod()]
+        public void GetValidAnagramsTest2()
+        {
+            
+            Assert.Fail();
+        }
+    [TestMethod()]
         public void LookupKVPForWordTest()
         {
             Assert.Fail();

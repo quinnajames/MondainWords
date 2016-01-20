@@ -14,6 +14,7 @@ namespace MondainDeploy.Tests
         [TestMethod()]
         public void QuizTest()
         {
+            public Quiz(int quizLength, int questionNumber, List<KeyValuePair<string, List<string>>> quizAtw, bool isBlankBingos)
             Assert.Fail();
         }
 

@@ -5,17 +5,17 @@
 <head runat="server">
     <%--<link href="Style2.css" rel="stylesheet" />--%>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
  
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     
     <%--JQuery--%>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <title>Mondain Words</title>
-    <Style>
+    <style type="text/css">
         p.small {
     line-height: 110%;
                 }
@@ -23,14 +23,14 @@
         p.big {
     line-height: 140%;
         }
-    </Style>
+    </style>
     
     <%--Project specific--%>
     <link href="Style_Sheets/MondainDeployBSTheme.css" rel="stylesheet" type="text/css" />
     <link href="Style_Sheets/ProgressBarStyle.css" rel="stylesheet" type="text/css" />
-    <script src="Scripts/ProgressBarScript.js"></script>
+    <script type="text/javascript" src="Scripts/ProgressBarScript.js"></script>
     <link href="Style_Sheets/TooltipStyle.css" rel="stylesheet" />
-    <script src="Scripts/TooltipScript.js"></script>
+    <script type="text/javascript" src="Scripts/TooltipScript.js"></script>
 </head>
 <body>
     <div class="container">

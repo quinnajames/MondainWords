@@ -236,14 +236,6 @@ namespace MondainDeploy
         private string Embolden(string str) => "<strong>" + str + "</strong>";
         private string Strike(string str) => "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
 
-        protected void AnswerBoxTextChanged(object sender, EventArgs e)
-        {
-            return;
-        }
-        protected void BlankBingoCheckedChanges(object sender, EventArgs e)
-        {
-            return;
-        }
 
 
     }

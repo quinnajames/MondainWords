@@ -201,7 +201,8 @@ namespace MondainDeploy
         {
             return new KeyValuePair<string, WordData>(wordToSearch, WordsToMetadata[wordToSearch]);
         }
-
+        
+        // This should be moved out of FullLexicon.
         public static string AddCurrentDirToPath(string path)
         {
             var currentDir = System.IO.Directory.GetCurrentDirectory();
