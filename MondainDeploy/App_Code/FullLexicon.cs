@@ -7,20 +7,26 @@ namespace MondainDeploy
 {
     public class FullLexicon
     {
+
+
         public Dictionary<string, WordData> WordsToMetadata { get; set; }
         public Dictionary<string, List<string>> AlphagramsToWords { get; set; }
 
         public Dictionary<int, int> MaxProbPerWord { get; set; }
 
         ///<summary>
-        ///Constructor expects FULL path.
+        ///Create new lexicon from a text file via InitWordsToMetadata.
         ///</summary>
+        ///<remarks>
+        ///The path constructor expects FULL path.
+        ///</remarks>
         public FullLexicon(string inputPath)
         {
             WordsToMetadata = InitWordsToMetadata(new Dictionary<string, WordData>(), inputPath);
             AlphagramsToWords = InitAlphagramsToWords(WordsToMetadata);
             MaxProbPerWord = InitMaxProbPerWord();
         }
+
         // Possible future change: a wrapped FullLexicon could inherit from the standard FullLexicon
         public FullLexicon(LexTableWrapper ltw)
         {
@@ -103,13 +109,13 @@ namespace MondainDeploy
             return AlphagramsToWords.Count;
         }
 
-        ///<summary>
+
         ///Current behavior can return a quiz length that's smaller than requested under unusual circumstances.
         ///(Example: 2 questions, length 8, min prob 1, max prob 4.)
         ///Because of the way that probability is stored in the database, the customQuizLength validator can't really handle all these edge cases.
         ///This is currently handled by the Default code-behind page which just produces the smaller quiz.
         ///For future enhancement.
-        ///</summary>
+
         public List<KeyValuePair<string, List<string>>> GetRandomQuizEntries(Int32 returnsize, Random rnd, int minLength, int maxLength, int minProb, int maxProb)
         {
             if (minProb <= 0)
