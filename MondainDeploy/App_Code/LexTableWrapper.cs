@@ -23,7 +23,7 @@ namespace MondainDeploy
                 SqlConnection con = new SqlConnection(connectionString.ToString());
                 SqlCommand cmd = new SqlCommand(selectSQL, con);
                 //SqlDataReader reader;
-                DataSet dsWTA = new DataSet();
+                DataSet dsWordsToAlpha = new DataSet();
                 var nameOfTable = "WordsToMetadata";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -33,7 +33,7 @@ namespace MondainDeploy
                 {
                     con.Open();
 
-                    adapter.Fill(dsWTA, nameOfTable);
+                    adapter.Fill(dsWordsToAlpha, nameOfTable);
                 }
                 catch (Exception err)
                 {
@@ -45,7 +45,7 @@ namespace MondainDeploy
                     con.Close();
                 }
 
-                foreach (DataRow row in dsWTA.Tables[nameOfTable].Rows)
+                foreach (DataRow row in dsWordsToAlpha.Tables[nameOfTable].Rows)
                 {
                     WordsToMetadata.Add(row["Word"].ToString(),
                         new WordData(
@@ -68,7 +68,7 @@ namespace MondainDeploy
                     SqlConnection con = new SqlConnection(connectionString.ToString());
                     SqlCommand cmd = new SqlCommand(selectSQL, con);
                     //SqlDataReader reader;
-                    DataSet dsWTA = new DataSet();
+                    DataSet dsWordsToAlpha = new DataSet();
                     var nameOfTable = "WordsToAlphagrams";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -78,7 +78,7 @@ namespace MondainDeploy
                     {
                         con.Open();
 
-                        adapter.Fill(dsWTA, nameOfTable);
+                        adapter.Fill(dsWordsToAlpha, nameOfTable);
                     }
                     catch (Exception err)
                     {
@@ -89,7 +89,7 @@ namespace MondainDeploy
                     {
                         con.Close();
                     }
-                    foreach (DataRow row in dsWTA.Tables[nameOfTable].Rows)
+                    foreach (DataRow row in dsWordsToAlpha.Tables[nameOfTable].Rows)
                     {
                         WordsToAlphagrams.Add(row["Word"].ToString(), row["Alphagram"].ToString());
                     }

@@ -8,10 +8,10 @@ namespace MondainDeploy
 { 
     public static class MondainUI
     {
-        public static int TryParseWithDefault(string input_string, int defaultvalue)
+        public static int TryParseWithDefault(string inputString, int defaultvalue)
         {
             int val;
-            if (!Int32.TryParse(input_string, out val))
+            if (!Int32.TryParse(inputString, out val))
                 val = defaultvalue;
             return val;
         }

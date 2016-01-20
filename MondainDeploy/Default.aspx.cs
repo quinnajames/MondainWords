@@ -140,7 +140,7 @@ namespace MondainDeploy
         }
         private void ProcessQuestion()
         {
-            currentQuiz.CurrentQuestion = currentQuiz.QuizATW[currentQuiz.QuestionNumber - 1];
+            currentQuiz.CurrentQuestion = currentQuiz.QuizAlphaToWords[currentQuiz.QuestionNumber - 1];
             currentQuiz.CurrentAnswerList = currentQuiz.CurrentQuestion.Value;
             LabelCurrentQuestion.Text = "#" + currentQuiz.QuestionNumber + ": " + currentQuiz.CurrentQuestion.Key;
             if (currentQuiz.IsBlankBingos)

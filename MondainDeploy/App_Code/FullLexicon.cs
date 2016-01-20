@@ -29,16 +29,16 @@ namespace MondainDeploy
             MaxProbPerWord = InitMaxProbPerWord();
         }
 
-        private Dictionary<string, List<string>> InitAlphagramsToWords(Dictionary<string, WordData> WTM)
+        private Dictionary<string, List<string>> InitAlphagramsToWords(Dictionary<string, WordData> wordsToMeta)
         {
             Dictionary<string, List<string>> ATW = new Dictionary<string, List<string>>();
-            foreach (var wtaItem in WTM)
+            foreach (var wtmItem in wordsToMeta)
             {
                 // if there's no word matching the current alphagram, start a new alphagram/solution set
-                if (!ATW.ContainsKey(wtaItem.Value.Alphagram))
-                    ATW.Add(wtaItem.Value.Alphagram, new List<string>());
+                if (!ATW.ContainsKey(wtmItem.Value.Alphagram))
+                    ATW.Add(wtmItem.Value.Alphagram, new List<string>());
                 // regardless, add the current word in
-                ATW[wtaItem.Value.Alphagram].Add(wtaItem.Key);
+                ATW[wtmItem.Value.Alphagram].Add(wtmItem.Key);
             }
             return ATW;
         }
@@ -55,7 +55,7 @@ namespace MondainDeploy
             return maxProb;
         }
 
-        private Dictionary<string, WordData> InitWordsToMetadata(Dictionary<string, WordData> WTM, string path)
+        private Dictionary<string, WordData> InitWordsToMetadata(Dictionary<string, WordData> wordsToMeta, string path)
         {
             try
             {
@@ -64,23 +64,23 @@ namespace MondainDeploy
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        var tempWD = new WordData();
+                        var tempWordData = new WordData();
                         string[] splitLine = line.Split('\t');
                         var word = splitLine[0];
                         if (word.Contains("+"))
                         {
                             word = word.TrimEnd('+');
-                            tempWD.IsNew = true;
+                            tempWordData.IsNew = true;
                         }
                         else
                         {
-                            tempWD.IsNew = false;
+                            tempWordData.IsNew = false;
                         }
-                        tempWD.Alphagram = AlphagramifyString(word);
-                        tempWD.Probability = int.Parse(splitLine[1]);
-                        tempWD.Playability = int.Parse(splitLine[2]);
-                        tempWD.Definition = splitLine[3];
-                        WTM.Add(word, tempWD);
+                        tempWordData.Alphagram = AlphagramifyString(word);
+                        tempWordData.Probability = int.Parse(splitLine[1]);
+                        tempWordData.Playability = int.Parse(splitLine[2]);
+                        tempWordData.Definition = splitLine[3];
+                        wordsToMeta.Add(word, tempWordData);
                     }
                 }
             }
@@ -89,7 +89,7 @@ namespace MondainDeploy
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
-            return WTM;
+            return wordsToMeta;
 
         } // end Lexicon.FillWordsToAlphagrams
 
@@ -120,7 +120,7 @@ namespace MondainDeploy
                 var shuffledList =
                     new List<KeyValuePair<string, List<string>>>(from kvp in AlphagramsToWords.ToList()
                         where kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
-                              && LookupKVPForWord(kvp.Value[0]).Value.Probability >= minProb
+                              && LookupPairsForWord(kvp.Value[0]).Value.Probability >= minProb
                         orderby rnd.Next()
                         select kvp);
                 return shuffledList.Take(returnsize).ToList();
@@ -130,8 +130,8 @@ namespace MondainDeploy
                 var shuffledList =
                     new List<KeyValuePair<string, List<string>>>(from kvp in AlphagramsToWords.ToList()
                         where kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
-                              && LookupKVPForWord(kvp.Value[0]).Value.Probability >= minProb
-                              && LookupKVPForWord(kvp.Value[0]).Value.Probability <= maxProb
+                              && LookupPairsForWord(kvp.Value[0]).Value.Probability >= minProb
+                              && LookupPairsForWord(kvp.Value[0]).Value.Probability <= maxProb
                         orderby rnd.Next()
                         select kvp);
                 return shuffledList.Take(returnsize).ToList();
@@ -197,7 +197,7 @@ namespace MondainDeploy
             return returnArray;
 
         } // end GetValidAnagrams
-        public KeyValuePair<string, WordData> LookupKVPForWord(string wordToSearch)
+        public KeyValuePair<string, WordData> LookupPairsForWord(string wordToSearch)
         {
             return new KeyValuePair<string, WordData>(wordToSearch, WordsToMetadata[wordToSearch]);
         }
@@ -205,13 +205,13 @@ namespace MondainDeploy
         // This should be moved out of FullLexicon.
         public static string AddCurrentDirToPath(string path)
         {
-            var currentDir = System.IO.Directory.GetCurrentDirectory();
+            var currentDir = Directory.GetCurrentDirectory();
             if (currentDir.ToLower().EndsWith(@"\bin\debug") ||
                 currentDir.ToLower().EndsWith(@"\bin\release"))
 
-                path = System.IO.Path.GetFullPath(@"..\..\" + path);
+                path = Path.GetFullPath(@"..\..\" + path);
             else
-                path = System.IO.Path.GetFullPath(path);
+                path = Path.GetFullPath(path);
             return path;
         }
 

@@ -19,22 +19,22 @@ namespace MondainDeploy
 
         public List<string> CurrentAnswerList { get; set; }
 
-        public List<KeyValuePair<string, List<string>>> QuizATW { get; set; }
+        public List<KeyValuePair<string, List<string>>> QuizAlphaToWords { get; set; }
 
         public int CorrectAlphagramCount;
         public int IncorrectAlphagramCount;
         public int CorrectWordCount, IncorrectWordCount, CurrentAnswerWordCount;
         public bool Finished { get; set; }
         public bool IsBlankBingos { get; set; }
-        public Quiz(int quizLength, int questionNumber, List<KeyValuePair<string, List<string>>> quizAtw, bool isBlankBingos)
+        public Quiz(int quizLength, int questionNumber, List<KeyValuePair<string, List<string>>> quizAlphaToWords, bool isBlankBingos)
         {
             QuizLength = quizLength;
             QuestionNumber = questionNumber;
-            QuizATW = quizAtw;
+            QuizAlphaToWords = quizAlphaToWords;
             IsBlankBingos = isBlankBingos;
-            CurrentQuestion = QuizATW[QuestionNumber - 1];
-            CurrentAnswerList = QuizATW[QuestionNumber - 1].Value;
-            CurrentAnswerWordCount = QuizATW[QuestionNumber - 1].Value.Count;
+            CurrentQuestion = QuizAlphaToWords[QuestionNumber - 1];
+            CurrentAnswerList = QuizAlphaToWords[QuestionNumber - 1].Value;
+            CurrentAnswerWordCount = QuizAlphaToWords[QuestionNumber - 1].Value.Count;
             CorrectAlphagramCount = IncorrectAlphagramCount = 0;
             CorrectWordCount = IncorrectWordCount = 0;
             Finished = false;
@@ -57,7 +57,7 @@ namespace MondainDeploy
 
         public void ResetCurrentAnswerWordCount()
         {
-            CurrentAnswerWordCount = QuizATW[QuestionNumber - 1].Value.Count;
+            CurrentAnswerWordCount = QuizAlphaToWords[QuestionNumber - 1].Value.Count;
 
             CurrentQuizAnswerStatsList = new List<QuizAnswer>();
             foreach (var str in CurrentAnswerList)
