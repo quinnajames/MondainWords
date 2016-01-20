@@ -60,11 +60,11 @@ namespace MondainDeploy
         }
         private Quiz InitializeCurrentQuiz()
         {
-            int quizLengthValue = TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
-            int minValue = TryParseWithDefault(MinDD.SelectedValue, Constants.WordLengthMinDefault);
-            int maxValue = TryParseWithDefault(MaxDD.SelectedValue, Constants.WordLengthMaxDefault);
-            int minProbValue = TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
-            int maxProbValue = TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
+            int quizLengthValue = MondainUI.TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
+            int minValue = MondainUI.TryParseWithDefault(MinDD.SelectedValue, Constants.WordLengthMinDefault);
+            int maxValue = MondainUI.TryParseWithDefault(MaxDD.SelectedValue, Constants.WordLengthMaxDefault);
+            int minProbValue = MondainUI.TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
+            int maxProbValue = MondainUI.TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
             int temp_questionNumber = 1;
 
@@ -222,13 +222,6 @@ namespace MondainDeploy
         }
 
         // utility functions
-        private int TryParseWithDefault(string input_string, int defaultvalue)
-        {
-            int val;
-            if (!Int32.TryParse(input_string, out val))
-                val = defaultvalue;
-            return val;
-        }
         string PrependString(string inputString, string toBePrepended) => toBePrepended + inputString;
         string PrependLine(string inputString, string toBePrepended) => PrependString(inputString, toBePrepended + "<br />");
         string PostpendLine(string inputString, string toBePostpended) => PrependString(toBePostpended + "<br />", inputString);
@@ -246,9 +239,9 @@ namespace MondainDeploy
         {
             try
             {
-                int quizLengthValue = TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
-                int minProbValue = TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
-                int maxProbValue = TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
+                int quizLengthValue = MondainUI.TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
+                int minProbValue = MondainUI.TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
+                int maxProbValue = MondainUI.TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
                 args.IsValid = quizLengthValue - 1 <= maxProbValue - minProbValue;
             }

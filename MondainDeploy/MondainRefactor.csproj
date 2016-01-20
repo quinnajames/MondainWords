@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Constants.cs" />
+    <Compile Include="App_Code\MondainUI.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
