@@ -51,14 +51,11 @@ namespace MondainDeploy
 
         private Dictionary<int, int> InitMaxProbPerWord()
         {
-            Dictionary<int, int> maxProb = new Dictionary<int, int>();
-            for (var x = 2; x < 15 - 1; x++)
-            {
-                maxProb.Add(x, new List<string>(from kvp in AlphagramsToWords.ToList()
-                    where kvp.Key.Length == x
-                    select kvp.Key).Count);
-            }
-            return maxProb;
+            // Dictionary with keys 2-15...
+            return Enumerable.Range(2, 14).ToList().ToDictionary(x => x, 
+            // and values representing how many alphagrams there are at each length in the dictionary.
+                x => new List<string>(from kvp in AlphagramsToWords.ToList() where kvp.Key.Length == x select kvp.Key).Count);
+            // FFE: Could bake this into the DB, as it's constant values per lexicon.
         }
 
         private Dictionary<string, WordData> InitWordsToMetadata(Dictionary<string, WordData> wordsToMeta, string path)
