@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace MondainDeploy
 {
+    // FFE: Come up with a better class name than "FullLexicon."
     public class FullLexicon
     {
 
@@ -20,6 +21,10 @@ namespace MondainDeploy
         ///<remarks>
         ///The path constructor expects FULL path.
         ///</remarks>
+
+
+        // FFE: Make this a derived class so that it can inherit from the second FullLexicon.
+        // Among other things this will allow swerving of the two lines of duplicated code.
         public FullLexicon(string inputPath)
         {
             WordsToMetadata = InitWordsToMetadata(new Dictionary<string, WordData>(), inputPath);
@@ -27,7 +32,7 @@ namespace MondainDeploy
             MaxProbPerWord = InitMaxProbPerWord();
         }
 
-        // Possible future change: a wrapped FullLexicon could inherit from the standard FullLexicon
+
         public FullLexicon(LexTableWrapper ltw)
         {
             WordsToMetadata = ltw.WordsToMetadata;
@@ -73,13 +78,15 @@ namespace MondainDeploy
                         if (word.Contains("+"))
                         {
                             word = word.TrimEnd('+');
+                            // IsNew is a token not being used right now. It's indicated by that + being trimmed out.
                             tempWordData.IsNew = true;
                         }
                         else
                         {
                             tempWordData.IsNew = false;
                         }
-                        tempWordData.Alphagram = AlphagramifyString(word);
+                        // Writing splitLine[0] instead of word here makes the file format transparent.
+                        tempWordData.Alphagram = AlphagramifyString(splitLine[0]);
                         tempWordData.Probability = int.Parse(splitLine[1]);
                         tempWordData.Playability = int.Parse(splitLine[2]);
                         tempWordData.Definition = splitLine[3];
@@ -111,47 +118,54 @@ namespace MondainDeploy
         ///(Example: 2 questions, length 8, min prob 1, max prob 4.)
         ///Because of the way that probability is stored in the database, the customQuizLength validator can't really handle all these edge cases.
         ///This is currently handled by the Default code-behind page which just produces the smaller quiz.
-        ///For future enhancement.
+        ///FFE.
 
+
+        ///Also FFE: a less complicated chain for determining the maxProb.
+        ///Currently what happens is that in the code-behind file, if the user enters a meaningless maxProb (or minProb), it defaults to Constants.ProbabilityMaxDefault.
+        ///Then that default probability (which is a number chosen to be higher than the actual meaningful limit of maxProb) gets sent to this function.
+        ///This is all a bit inelegant.
+        ///Because of the way we get lists, it doesn't really matter if the maxProb is out of bounds to the right -- we're only ever comparing less than or equal to.
+        ///The only time we get errors is if the *minProb* is out of bounds to the right.
         public List<KeyValuePair<string, List<string>>> GetRandomQuizEntries(Int32 returnsize, Random rnd, int minLength, int maxLength, int minProb, int maxProb)
         {
-            if (minProb <= 0)
+            // A minimum probability under 1 is meaningless.
+            if (minProb < 1)
                 minProb = 1;
 
-            if (maxProb <= 0)
+            List<KeyValuePair<string, List<string>>> shuffledList;
+            if (maxProb < 1)
             {
-                var shuffledList =
-                    new List<KeyValuePair<string, List<string>>>(from kvp in AlphagramsToWords.ToList()
-                        where kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
-                              && LookupPairsForWord(kvp.Value[0]).Value.Probability >= minProb
-                        orderby rnd.Next()
-                        select kvp);
-                return shuffledList.Take(returnsize).ToList();
+                // The list with only max prob. specified meaningfully.
+                shuffledList =
+                    new List<KeyValuePair<string, List<string>>>(AlphagramsToWords.ToList()
+                        .Where(kvp => kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
+                                      && LookupPairsForWord(kvp.Value[0]).Value.Probability >= minProb)
+                        .OrderBy(kvp => rnd.Next()));
             }
             else
             {
-                var shuffledList =
-                    new List<KeyValuePair<string, List<string>>>(from kvp in AlphagramsToWords.ToList()
-                        where kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
-                              && LookupPairsForWord(kvp.Value[0]).Value.Probability >= minProb
-                              && LookupPairsForWord(kvp.Value[0]).Value.Probability <= maxProb
-                        orderby rnd.Next()
-                        select kvp);
-                return shuffledList.Take(returnsize).ToList();
+                // The list with both min prob. and max prob. specified meaningfully.
+                shuffledList =
+                    new List<KeyValuePair<string, List<string>>>(AlphagramsToWords.ToList()
+                        .Where(kvp => kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
+                                      && LookupPairsForWord(kvp.Value[0]).Value.Probability >= minProb
+                                      && LookupPairsForWord(kvp.Value[0]).Value.Probability <= maxProb)
+                        .OrderBy(kvp => rnd.Next()));
+               
             }
-        } // end GetRandomQuizEntries
+           return shuffledList.Take(returnsize).ToList();
+        }
 
         public List<KeyValuePair<string, List<string>>> GetBlankBingoEntries(Int32 returnsize, Random rnd, int minLength, int maxLength)
         {
             var bbCandidates = new List<KeyValuePair<string, List<string>>>();
             foreach (var kvp in AlphagramsToWords)
             {
-                if (kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength)
-                {
-                    var newKeySearchable = RemoveRandomLetter(kvp.Key, new Random());
-                    bbCandidates.Add(new KeyValuePair<string, List<string>>(newKeySearchable,
-                        ReturnOneLetterSteals(newKeySearchable)));
-                }
+                if (kvp.Key.Length > maxLength || kvp.Key.Length < minLength) continue;
+                var newKeySearchable = RemoveRandomLetter(kvp.Key, new Random());
+                bbCandidates.Add(new KeyValuePair<string, List<string>>(newKeySearchable,
+                    ReturnOneLetterSteals(newKeySearchable)));
             }
 
             var bbList = new List<KeyValuePair<string, List<string>>>(from kvp in bbCandidates.ToList()
@@ -198,14 +212,14 @@ namespace MondainDeploy
                 returnArray = ATW[w];
             }
             return returnArray;
+        }
 
-        } // end GetValidAnagrams
         public KeyValuePair<string, WordData> LookupPairsForWord(string wordToSearch)
         {
             return new KeyValuePair<string, WordData>(wordToSearch, WordsToMetadata[wordToSearch]);
         }
         
-        // This should be moved out of FullLexicon.
+        // This should (probably) be moved out of FullLexicon.
         public static string AddCurrentDirToPath(string path)
         {
             var currentDir = Directory.GetCurrentDirectory();

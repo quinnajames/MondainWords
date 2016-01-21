@@ -66,6 +66,8 @@ namespace MondainDeploy
             int minProbValue = MondainUI.TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
             int maxProbValue = MondainUI.TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
+            // This is only declared to make the function call at the bottom coherent.
+            // May be a canary in the coalmine# here.
             int temp_questionNumber = 1;
 
             System.Configuration.Configuration rootWebConfig =

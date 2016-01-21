@@ -55,7 +55,7 @@
                 <div class="panel-body">
                     <asp:Panel id="Panel2" runat="server">
                     <p>Quiz Questions: <asp:TextBox ID="TBQuizLength" runat="server" Width="40"></asp:TextBox></p>
-                    <p><asp:CheckBox ID="BlankBingoCheck" runat="server" OnCheckedChanged="BlankBingoCheckedChanges"/> Blank Bingo mode</p>
+                    <p><asp:CheckBox ID="BlankBingoCheck" runat="server"/> Blank Bingo mode</p>
                     <p class="big">
                     Length: Min <asp:DropDownList ID="MinDD" runat="server" Width="60px" Type="Integer" Display="Dynamic"></asp:DropDownList>&nbsp;&nbsp;&nbsp;
                      Max <asp:DropDownList ID="MaxDD" runat="server" Width="60px"></asp:DropDownList></p>
