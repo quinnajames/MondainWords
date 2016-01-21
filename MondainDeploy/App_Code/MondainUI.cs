@@ -15,5 +15,19 @@ namespace MondainDeploy
                 val = defaultvalue;
             return val;
         }
+
+        public static string Italicize(string str)
+        {
+            return "<i>" + str + "</i>";
+        } 
+        public static string Embolden(string str) 
+        {
+            return "<strong>" + str + "</strong>";
+        }
+
+        public static string Strike(string str)
+        {
+            return "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
+        }
     }
 }

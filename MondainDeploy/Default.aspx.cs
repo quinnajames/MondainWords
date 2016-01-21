@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static MondainDeploy.MondainUI;
 
 namespace MondainDeploy
 {
@@ -60,11 +61,11 @@ namespace MondainDeploy
         }
         private Quiz InitializeCurrentQuiz()
         {
-            int quizLengthValue = MondainUI.TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
-            int minValue = MondainUI.TryParseWithDefault(MinDD.SelectedValue, Constants.WordLengthMinDefault);
-            int maxValue = MondainUI.TryParseWithDefault(MaxDD.SelectedValue, Constants.WordLengthMaxDefault);
-            int minProbValue = MondainUI.TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
-            int maxProbValue = MondainUI.TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
+            int quizLengthValue = TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
+            int minValue = TryParseWithDefault(MinDD.SelectedValue, Constants.WordLengthMinDefault);
+            int maxValue = TryParseWithDefault(MaxDD.SelectedValue, Constants.WordLengthMaxDefault);
+            int minProbValue = TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
+            int maxProbValue = TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
             // This is only declared to make the function call at the bottom coherent.
             // May be a canary in the coalmine# here.
@@ -227,9 +228,9 @@ namespace MondainDeploy
         string PrependString(string inputString, string toBePrepended) => toBePrepended + inputString;
         string PrependLine(string inputString, string toBePrepended) => PrependString(inputString, toBePrepended + "<br />");
         string PostpendLine(string inputString, string toBePostpended) => PrependString(toBePostpended + "<br />", inputString);
-        private string Italicize(string str) => "<i>" + str + "</i>";
-        private string Embolden(string str) => "<strong>" + str + "</strong>";
-        private string Strike(string str) => "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
+//        private string Italicize(string str) => "<i>" + str + "</i>";
+//        private string Embolden(string str) => "<strong>" + str + "</strong>";
+//        private string Strike(string str) => "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
 
 
 
@@ -241,9 +242,9 @@ namespace MondainDeploy
         {
             try
             {
-                int quizLengthValue = MondainUI.TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
-                int minProbValue = MondainUI.TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
-                int maxProbValue = MondainUI.TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
+                int quizLengthValue = TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
+                int minProbValue = TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
+                int maxProbValue = TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
                 args.IsValid = quizLengthValue - 1 <= maxProbValue - minProbValue;
             }
