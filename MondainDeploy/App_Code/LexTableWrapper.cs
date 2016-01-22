@@ -17,35 +17,37 @@ namespace MondainDeploy
         {
             WordsToAlphagrams = new Dictionary<string, string>();
             WordsToMetadata = new Dictionary<string, WordData>();
+            // Some of this code can probably be reordered out of the if/else statement.
+            // Return to this when I've built tests for DB interaction.
             if (isFull)
             {
                 string selectSQL = "SELECT Word, Alphagram, isNew, Probability, Playability, Definition FROM WordsToMetadata";
-                SqlConnection con = new SqlConnection(connectionString.ToString());
-                SqlCommand cmd = new SqlCommand(selectSQL, con);
+                SqlConnection sqlCon = new SqlConnection(connectionString.ToString());
+                SqlCommand sqlCmd = new SqlCommand(selectSQL, sqlCon);
                 //SqlDataReader reader;
-                DataSet dsWordsToAlpha = new DataSet();
+                DataSet dataWordsToAlpha = new DataSet();
                 var nameOfTable = "WordsToMetadata";
 
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
 
                 // Try to open database and read information.
                 try
                 {
-                    con.Open();
+                    sqlCon.Open();
 
-                    adapter.Fill(dsWordsToAlpha, nameOfTable);
+                    adapter.Fill(dataWordsToAlpha, nameOfTable);
                 }
-                catch (Exception err)
+                catch (Exception ex)
                 {
                     Console.WriteLine("Error reading table.");
-                    Console.WriteLine(err.Message);
+                    Console.WriteLine(ex.Message);
                 }
                 finally
                 {
-                    con.Close();
+                    sqlCon.Close();
                 }
 
-                foreach (DataRow row in dsWordsToAlpha.Tables[nameOfTable].Rows)
+                foreach (DataRow row in dataWordsToAlpha.Tables[nameOfTable].Rows)
                 {
                     WordsToMetadata.Add(row["Word"].ToString(),
                         new WordData(
@@ -65,20 +67,20 @@ namespace MondainDeploy
                 {
 
                     string selectSQL = "SELECT Word, Alphagram FROM WordsToAlphagrams";
-                    SqlConnection con = new SqlConnection(connectionString.ToString());
-                    SqlCommand cmd = new SqlCommand(selectSQL, con);
+                    SqlConnection sqlCon = new SqlConnection(connectionString.ToString());
+                    SqlCommand sqlCmd = new SqlCommand(selectSQL, sqlCon);
                     //SqlDataReader reader;
-                    DataSet dsWordsToAlpha = new DataSet();
+                    DataSet dataWordsToAlpha = new DataSet();
                     var nameOfTable = "WordsToAlphagrams";
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
 
                     // Try to open database and read information.
                     try
                     {
-                        con.Open();
+                        sqlCon.Open();
 
-                        adapter.Fill(dsWordsToAlpha, nameOfTable);
+                        adapter.Fill(dataWordsToAlpha, nameOfTable);
                     }
                     catch (Exception err)
                     {
@@ -87,9 +89,9 @@ namespace MondainDeploy
                     }
                     finally
                     {
-                        con.Close();
+                        sqlCon.Close();
                     }
-                    foreach (DataRow row in dsWordsToAlpha.Tables[nameOfTable].Rows)
+                    foreach (DataRow row in dataWordsToAlpha.Tables[nameOfTable].Rows)
                     {
                         WordsToAlphagrams.Add(row["Word"].ToString(), row["Alphagram"].ToString());
                     }

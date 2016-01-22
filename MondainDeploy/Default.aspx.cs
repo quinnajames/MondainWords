@@ -10,15 +10,15 @@ namespace MondainDeploy
     public partial class Default : Page
     {
         // Cleared with every postback.
-        private Quiz currentQuiz;
-        private FullLexicon tempFL;
+        private Quiz _currentQuiz;
+        private FullLexicon _fullLexicon;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (this.IsPostBack)
             {
                 // Restore variables.
-                currentQuiz = (Quiz)ViewState["currentQuiz"];
+                _currentQuiz = (Quiz)ViewState["currentQuiz"];
                 CurrentQuestionHistoryLabel.Text = (string)ViewState["answerSetText"];
 
             }
@@ -36,7 +36,7 @@ namespace MondainDeploy
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            ViewState["currentQuiz"] = currentQuiz;
+            ViewState["currentQuiz"] = _currentQuiz;
             ViewState["answerSetText"] = CurrentQuestionHistoryLabel.Text;
         }
 
@@ -56,7 +56,7 @@ namespace MondainDeploy
             if (!Page.IsValid)
                 return;
             ResetQuestion();
-            currentQuiz = InitializeCurrentQuiz();
+            _currentQuiz = InitializeCurrentQuiz();
             ProcessQuestion();
         }
         private Quiz InitializeCurrentQuiz()
@@ -78,21 +78,21 @@ namespace MondainDeploy
             {
                 connString =
                     rootWebConfig.ConnectionStrings.ConnectionStrings["LocalSQLExpressConnectionString"];
-                tempFL = new FullLexicon(new LexTableWrapper(connString, true));
+                _fullLexicon = new FullLexicon(new LexTableWrapper(connString, true));
             }
 
             
             CurrentStatus.Text = "";
-            CurrentStatus.Text = PostpendLine(CurrentStatus.Text, "Lexicon words: " + tempFL.GetWordCount().ToString());
-            CurrentStatus.Text = PostpendLine(CurrentStatus.Text, "Alphagrams: " + tempFL.GetAlphagramCount().ToString());
+            CurrentStatus.Text = PostpendLine(CurrentStatus.Text, "Lexicon words: " + _fullLexicon.GetWordCount().ToString());
+            CurrentStatus.Text = PostpendLine(CurrentStatus.Text, "Alphagrams: " + _fullLexicon.GetAlphagramCount().ToString());
 
             bool isBlankBingos = BlankBingoCheck.Checked;
             List<KeyValuePair<string, List<string>>> tempQuizATW = new List<KeyValuePair<string, List<string>>>();
             if (!isBlankBingos)
-                tempQuizATW = tempFL.GetRandomQuizEntries(quizLengthValue,
+                tempQuizATW = _fullLexicon.GetRandomQuizEntries(quizLengthValue,
                     new Random(), minValue, maxValue, minProbValue, maxProbValue);
             else
-                tempQuizATW = tempFL.GetBlankBingoEntries(quizLengthValue, new Random(), minValue, maxValue);
+                tempQuizATW = _fullLexicon.GetBlankBingoEntries(quizLengthValue, new Random(), minValue, maxValue);
 
             if (tempQuizATW.Count != quizLengthValue)
                 quizLengthValue = tempQuizATW.Count;
@@ -107,17 +107,17 @@ namespace MondainDeploy
 
         private void MarkQuestionCorrect()
         {
-            currentQuiz.IncrementCounts(true);
+            _currentQuiz.IncrementCounts(true);
             AdvanceQuestion();
         }
         private void MarkQuestionMissed()
         {
-            currentQuiz.IncrementCounts(false);
-            foreach (var word in currentQuiz.CurrentAnswerList)
+            _currentQuiz.IncrementCounts(false);
+            foreach (var word in _currentQuiz.CurrentAnswerList)
             {
                 CurrentQuestionHistoryLabel.Text = PrependLine(CurrentQuestionHistoryLabel.Text, Embolden(Italicize(word)));
             }
-            CurrentQuestionHistoryLabel.Text = PrependLine(CurrentQuestionHistoryLabel.Text, "Question " + currentQuiz.QuestionNumber + Embolden(" incorrect") + "!");
+            CurrentQuestionHistoryLabel.Text = PrependLine(CurrentQuestionHistoryLabel.Text, "Question " + _currentQuiz.QuestionNumber + Embolden(" incorrect") + "!");
             MoveCurrentQuestionToAnswerHistory();
         }
         private void MoveCurrentQuestionToAnswerHistory()
@@ -127,14 +127,14 @@ namespace MondainDeploy
         }
         private void AdvanceQuestion()
         {
-            if (currentQuiz.Finished)
+            if (_currentQuiz.Finished)
                 CurrentStatus.Text = PrependLine(CurrentStatus.Text, "Quiz is already finished!");
             else
             {
                 UpdateStats();
-                if (currentQuiz.QuestionNumber < currentQuiz.QuizLength)
+                if (_currentQuiz.QuestionNumber < _currentQuiz.QuizLength)
                 {
-                    currentQuiz.QuestionNumber++;
+                    _currentQuiz.QuestionNumber++;
                     ProcessQuestion();
                 }
                 else
@@ -143,14 +143,14 @@ namespace MondainDeploy
         }
         private void ProcessQuestion()
         {
-            currentQuiz.CurrentQuestion = currentQuiz.QuizAlphaToWords[currentQuiz.QuestionNumber - 1];
-            currentQuiz.CurrentAnswerList = currentQuiz.CurrentQuestion.Value;
-            LabelCurrentQuestion.Text = "#" + currentQuiz.QuestionNumber + ": " + currentQuiz.CurrentQuestion.Key;
-            if (currentQuiz.IsBlankBingos)
+            _currentQuiz.CurrentQuestion = _currentQuiz.QuizAlphaToWords[_currentQuiz.QuestionNumber - 1];
+            _currentQuiz.CurrentAnswerList = _currentQuiz.CurrentQuestion.Value;
+            LabelCurrentQuestion.Text = "#" + _currentQuiz.QuestionNumber + ": " + _currentQuiz.CurrentQuestion.Key;
+            if (_currentQuiz.IsBlankBingos)
                 LabelCurrentQuestion.Text += Embolden("?");
-            currentQuiz.ResetCurrentAnswerWordCount();
-            UpdateTotalSolutionsLabelWhenCorrect(currentQuiz.GetBooleanAnswersThisQuestion()[0],
-        currentQuiz.GetBooleanAnswersThisQuestion()[0] + currentQuiz.GetBooleanAnswersThisQuestion()[1]); ;
+            _currentQuiz.ResetCurrentAnswerWordCount();
+            UpdateTotalSolutionsLabelWhenCorrect(_currentQuiz.GetBooleanAnswersThisQuestion()[0],
+        _currentQuiz.GetBooleanAnswersThisQuestion()[0] + _currentQuiz.GetBooleanAnswersThisQuestion()[1]); ;
 
         }
         private void UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions)
@@ -159,15 +159,15 @@ namespace MondainDeploy
         }
         private void UpdateStats()
         {
-            var correct = currentQuiz.GetBooleanAnswersThisQuestion();
+            var correct = _currentQuiz.GetBooleanAnswersThisQuestion();
             
-            currentQuiz.CorrectWordCount += correct[0];
-            currentQuiz.IncorrectWordCount += correct[1];
+            _currentQuiz.CorrectWordCount += correct[0];
+            _currentQuiz.IncorrectWordCount += correct[1];
 
-            var cc = currentQuiz.CorrectAlphagramCount;
-            var ic = currentQuiz.IncorrectAlphagramCount;
-            var ccw = currentQuiz.CorrectWordCount;
-            var icw = currentQuiz.IncorrectWordCount;
+            var cc = _currentQuiz.CorrectAlphagramCount;
+            var ic = _currentQuiz.IncorrectAlphagramCount;
+            var ccw = _currentQuiz.CorrectWordCount;
+            var icw = _currentQuiz.IncorrectWordCount;
 
             Label_StatsCorrectAlphagramFraction.Text = cc.ToString() + '/' + (cc + ic);
             Label_StatsCorrectAlphagramPercent.Text = Math.Round(((double)cc / (cc + ic)) * 100, 2).ToString(CultureInfo.InvariantCulture) + "%";
@@ -188,24 +188,24 @@ namespace MondainDeploy
             if (CurrentQuestionHistoryLabel.Text == AnswerSetDefaultText)
                 CurrentQuestionHistoryLabel.Text = "";
 
-            if (currentQuiz.Finished)
+            if (_currentQuiz.Finished)
             {
                 CurrentStatus.Text = PrependLine(CurrentStatus.Text, "Error: Quiz is already completed!");
                 return;
             }
-            if (currentQuiz.CurrentAnswerList.Contains(submittedAnswer))
+            if (_currentQuiz.CurrentAnswerList.Contains(submittedAnswer))
             {
-                currentQuiz.SetWordAsCorrect(submittedAnswer);
-                currentQuiz.CurrentAnswerList.Remove(submittedAnswer);
+                _currentQuiz.SetWordAsCorrect(submittedAnswer);
+                _currentQuiz.CurrentAnswerList.Remove(submittedAnswer);
                 CurrentQuestionHistoryLabel.Text = PrependLine(CurrentQuestionHistoryLabel.Text, submittedAnswer);
-                UpdateTotalSolutionsLabelWhenCorrect(currentQuiz.GetBooleanAnswersThisQuestion()[0],
-                    currentQuiz.GetBooleanAnswersThisQuestion()[0] + currentQuiz.GetBooleanAnswersThisQuestion()[1]);
+                UpdateTotalSolutionsLabelWhenCorrect(_currentQuiz.GetBooleanAnswersThisQuestion()[0],
+                    _currentQuiz.GetBooleanAnswersThisQuestion()[0] + _currentQuiz.GetBooleanAnswersThisQuestion()[1]);
             }
             else
                 CurrentQuestionHistoryLabel.Text = PrependLine(CurrentQuestionHistoryLabel.Text, Strike(submittedAnswer));
 
-            if (currentQuiz.CurrentAnswerList.Count != 0) return;
-            CurrentQuestionHistoryLabel.Text = PrependLine(CurrentQuestionHistoryLabel.Text, "Question " + currentQuiz.QuestionNumber + Embolden(" correct") + "!");
+            if (_currentQuiz.CurrentAnswerList.Count != 0) return;
+            CurrentQuestionHistoryLabel.Text = PrependLine(CurrentQuestionHistoryLabel.Text, "Question " + _currentQuiz.QuestionNumber + Embolden(" correct") + "!");
             MoveCurrentQuestionToAnswerHistory();
             MarkQuestionCorrect();
         }
@@ -217,7 +217,7 @@ namespace MondainDeploy
 
         protected void EndQuiz()
         {
-            currentQuiz.Finished = true;
+            _currentQuiz.Finished = true;
             CurrentStatus.Text = PrependLine(CurrentStatus.Text, "Quiz complete!");
             LabelCurrentQuestion.Text = "Quiz complete!";
             LabelTotalSolutions.Text = "";
