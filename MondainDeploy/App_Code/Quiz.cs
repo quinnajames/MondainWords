@@ -8,11 +8,12 @@ namespace MondainDeploy
     /// Summary description for Quiz
     /// </summary>
     [Serializable]
-    internal class Quiz
+    public class Quiz
     {
         public int QuizLength { get; set; }
         public int QuestionNumber { get; set; }
         public KeyValuePair<string, List<string>> CurrentQuestion { get; set; }
+        public List<WordData> CurrentAnswerResultsList;
 
         public List<QuizAnswer> CurrentQuizAnswerStatsList;
 
