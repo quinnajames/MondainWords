@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MondainDeploy
 {
-    public struct Constants
+    internal struct Constants
     {
         public static readonly List<int> WordLengths = Enumerable.Range(2, 14).ToList();
         public static readonly int WordLengthMinDefault = 7;

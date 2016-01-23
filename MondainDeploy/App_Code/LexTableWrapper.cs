@@ -8,7 +8,7 @@ namespace MondainDeploy
     /// <summary>
     /// Summary description for LexTableWrapper
     /// </summary>
-    public class LexTableWrapper
+    internal class LexTableWrapper
     {
         public Dictionary<string, string> WordsToAlphagrams { get; set; }
         public Dictionary<string, WordData> WordsToMetadata { get; set; }

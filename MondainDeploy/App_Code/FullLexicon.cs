@@ -6,7 +6,7 @@ using System.Linq;
 namespace MondainDeploy
 {
     // FFE: Come up with a better class name than "FullLexicon."
-    public class FullLexicon
+    internal class FullLexicon
     {
 
 

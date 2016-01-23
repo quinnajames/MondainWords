@@ -1,6 +1,6 @@
 ﻿namespace MondainDeploy
 {
-    public struct WordData
+    internal struct WordData
     { 
         public string Alphagram;
         public bool IsNew;

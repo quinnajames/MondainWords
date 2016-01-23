@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MondainDeploy
-{ 
-    public static class MondainUI
+{
+    internal static class MondainUI
     {
         public static int TryParseWithDefault(string inputString, int defaultvalue)
         {
