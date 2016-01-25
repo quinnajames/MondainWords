@@ -11,10 +11,10 @@ namespace MondainDeploy.Tests
     [TestClass()]
     public class LexTableWrapperTests
     {
-        [TestMethod()]
-        public void LexTableWrapperTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void LexTableWrapperTest()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }

@@ -64,22 +64,22 @@ namespace MondainDeploy.Tests
             Assert.AreEqual(expected, MondainUI.Strike(original));
         }
 
-        [TestMethod()]
-        public void PrependStringTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void PrependStringTest()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void PrependLineTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void PrependLineTest()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void PostpendLineTest()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void PostpendLineTest()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }
