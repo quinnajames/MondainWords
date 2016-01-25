@@ -64,22 +64,31 @@ namespace MondainDeploy.Tests
             Assert.AreEqual(expected, MondainUI.Strike(original));
         }
 
-        //[TestMethod()]
-        //public void PrependStringTest()
-        //{
-        //    Assert.Fail();
-        //}
+        [TestMethod()]
+        public void PrependStringToTest()
+        {
+            string original = "car";
+            string original_prepend = "anti";
+            string expected = "anticar";
+            Assert.AreEqual(expected, MondainUI.PrependStringTo(original, original_prepend));
+        }
 
-        //[TestMethod()]
-        //public void PrependLineTest()
-        //{
-        //    Assert.Fail();
-        //}
+        [TestMethod()]
+        public void PrependLineToTest()
+        {
+            string original = "car";
+            string original_prepend = "cdr";
+            string expected = "cdr<br />car";
+            Assert.AreEqual(expected, MondainUI.PrependLineTo(original, original_prepend));
+        }
 
-        //[TestMethod()]
-        //public void PostpendLineTest()
-        //{
-        //    Assert.Fail();
-        //}
+        [TestMethod()]
+        public void PostpendLineToTest()
+        {
+            string original = "kat <br />";
+            string original_postpend = "car";
+            string expected = "kat <br />car<br />";
+            Assert.AreEqual(expected, MondainUI.PostpendLineTo(original, original_postpend));
+        }
     }
 }

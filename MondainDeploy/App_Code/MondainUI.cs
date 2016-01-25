@@ -31,19 +31,20 @@ namespace MondainDeploy
             return "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
         }
 
-        public static string PrependString(string inputString, string toBePrepended)
+        public static string PrependStringTo(string secondString, string firstString)
         {
-            return toBePrepended + inputString;
+            return firstString + secondString;
         }
 
-        public static string PrependLine(string inputString, string toBePrepended)
+        public static string PrependLineTo(string secondString, string firstString)
         {
-            return PrependString(inputString, toBePrepended + "<br />");
+            return PrependStringTo(secondString, firstString + "<br />");
         }
 
-        public static string PostpendLine(string inputString, string toBePostpended)
+        // FFE: refine the behavior of this function. See unit test.
+        public static string PostpendLineTo(string secondString, string firstString)
         {
-            return PrependString(toBePostpended + "<br />", inputString);
+            return PrependStringTo(firstString + "<br />", secondString);
         } 
     }
 }
