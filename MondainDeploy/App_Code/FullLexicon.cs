@@ -127,7 +127,7 @@ namespace MondainDeploy
         ///This is all a bit inelegant.
         ///Because of the way we get lists, it doesn't really matter if the maxProb is out of bounds to the right -- we're only ever comparing less than or equal to.
         ///The only time we get errors is if the *minProb* is out of bounds to the right.
-        public List<KeyValuePair<string, List<string>>> GetRandomQuizEntries(Int32 returnsize, Random rnd, int minLength, int maxLength, int minProb, int maxProb)
+        public List<KeyValuePair<string, List<string>>> GetRandomQuizEntries(int returnsize, Random rnd, int minLength, int maxLength, int minProb, int maxProb)
         {
             // A minimum probability under 1 is meaningless.
             if (minProb < 1)
@@ -159,22 +159,16 @@ namespace MondainDeploy
 
         public List<KeyValuePair<string, List<string>>> GetBlankBingoEntries(Int32 returnsize, Random rnd, int minLength, int maxLength)
         {
-            var bbCandidates = new List<KeyValuePair<string, List<string>>>();
-            foreach (var kvp in AlphagramsToWords)
-            {
-                if (kvp.Key.Length > maxLength || kvp.Key.Length < minLength) continue;
-                var newKeySearchable = RemoveRandomLetter(kvp.Key, new Random());
-                bbCandidates.Add(new KeyValuePair<string, List<string>>(newKeySearchable,
-                    ReturnOneLetterSteals(newKeySearchable)));
-            }
+            var bbCandidates = (from kvp in AlphagramsToWords
+                                    where kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
+                                    select RemoveRandomLetter(kvp.Key, new Random()) 
+                                into newKeySearchable select new KeyValuePair<string, List<string>>(newKeySearchable, ReturnOneLetterSteals(newKeySearchable))).ToList();
 
-            var bbList = new List<KeyValuePair<string, List<string>>>(from kvp in bbCandidates.ToList()
-                where Enumerable.Range(1, 9)
-                    .Select(x => (int)x)
+            var bbList = new List<KeyValuePair<string, List<string>>>(bbCandidates.ToList()
+                .Where(kvp => Enumerable.Range(1, 9)
+                    .Select(x => x)
                     .ToList()
-                    .Contains(kvp.Value.Count)
-                orderby rnd.Next()
-                select kvp);
+                    .Contains(kvp.Value.Count)).OrderBy(kvp => rnd.Next()));
 
             return bbList.Take(returnsize).ToList();
         }
