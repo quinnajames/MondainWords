@@ -33,25 +33,25 @@ namespace MondainDeploy
         }
 
 
-        public FullLexicon(LexTableWrapper ltw)
+        public FullLexicon(LexTableWrapper lexWrapper)
         {
-            WordsToMetadata = ltw.WordsToMetadata;
+            WordsToMetadata = lexWrapper.WordsToMetadata;
             AlphagramsToWords = InitAlphagramsToWords(WordsToMetadata);
             MaxProbPerWord = InitMaxProbPerWord();
         }
 
         private Dictionary<string, List<string>> InitAlphagramsToWords(Dictionary<string, WordData> wordsToMeta)
         {
-            Dictionary<string, List<string>> ATW = new Dictionary<string, List<string>>();
-            foreach (var wtmItem in wordsToMeta)
+            Dictionary<string, List<string>> alphaToWords = new Dictionary<string, List<string>>();
+            foreach (var wordsToMetaItem in wordsToMeta)
             {
                 // if there's no word matching the current alphagram, start a new alphagram/solution set
-                if (!ATW.ContainsKey(wtmItem.Value.Alphagram))
-                    ATW.Add(wtmItem.Value.Alphagram, new List<string>());
+                if (!alphaToWords.ContainsKey(wordsToMetaItem.Value.Alphagram))
+                    alphaToWords.Add(wordsToMetaItem.Value.Alphagram, new List<string>());
                 // regardless, add the current word in
-                ATW[wtmItem.Value.Alphagram].Add(wtmItem.Key);
+                alphaToWords[wordsToMetaItem.Value.Alphagram].Add(wordsToMetaItem.Key);
             }
-            return ATW;
+            return alphaToWords;
         }
 
         private Dictionary<int, int> InitMaxProbPerWord()
@@ -130,10 +130,12 @@ namespace MondainDeploy
         public List<KeyValuePair<string, List<string>>> GetRandomQuizEntries(int returnsize, Random rnd, int minLength, int maxLength, int minProb, int maxProb)
         {
             // A minimum probability under 1 is meaningless.
+
+            List<KeyValuePair<string, List<string>>> shuffledList;
+
             if (minProb < 1)
                 minProb = 1;
 
-            List<KeyValuePair<string, List<string>>> shuffledList;
             if (maxProb < 1)
             {
                 // The list with only max prob. specified meaningfully.
@@ -157,7 +159,7 @@ namespace MondainDeploy
            return shuffledList.Take(returnsize).ToList();
         }
 
-        public List<KeyValuePair<string, List<string>>> GetBlankBingoEntries(Int32 returnsize, Random rnd, int minLength, int maxLength)
+        public List<KeyValuePair<string, List<string>>> GetBlankBingoEntries(int returnsize, Random rnd, int minLength, int maxLength)
         {
             var bbCandidates = (from kvp in AlphagramsToWords
                                     where kvp.Key.Length <= maxLength && kvp.Key.Length >= minLength
@@ -198,12 +200,12 @@ namespace MondainDeploy
             return string.Concat(w.ToCharArray().OrderBy(x => x));
         }   
 
-        public static List<string> GetValidAnagrams(string w, Dictionary<string, List<string>> ATW)
+        public static List<string> GetValidAnagrams(string w, Dictionary<string, List<string>> alphaToWords)
         {
             var returnArray = new List<string>();
-            if (ATW.ContainsKey(AlphagramifyString(w)))
+            if (alphaToWords.ContainsKey(AlphagramifyString(w)))
             {
-                returnArray = ATW[w];
+                returnArray = alphaToWords[w];
             }
             return returnArray;
         }

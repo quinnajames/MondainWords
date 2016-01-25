@@ -225,9 +225,7 @@ namespace MondainDeploy
         }
 
         // utility functions
-        string PrependString(string inputString, string toBePrepended) => toBePrepended + inputString;
-        string PrependLine(string inputString, string toBePrepended) => PrependString(inputString, toBePrepended + "<br />");
-        string PostpendLine(string inputString, string toBePostpended) => PrependString(toBePostpended + "<br />", inputString);
+
 //        private string Italicize(string str) => "<i>" + str + "</i>";
 //        private string Embolden(string str) => "<strong>" + str + "</strong>";
 //        private string Strike(string str) => "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
