@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="App_Code\FullLexiconTests.cs" />
     <Compile Include="App_Code\LexTableWrapperTests.cs" />
+    <Compile Include="App_Code\MondainUITests.cs" />
     <Compile Include="App_Code\QuizTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
