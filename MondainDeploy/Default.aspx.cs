@@ -49,13 +49,17 @@ namespace MondainDeploy
                 MaxDD.Items.Add(elString);
             }
         }
-        
+
+        private void ClearTextControl(ITextControl label)
+        {
+            label.Text = string.Empty;
+        }
 
         protected void cmdStartQuiz_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
                 return;
-            ResetQuestion();
+            ClearTextControl(CurrentQuestionHistoryLabel);
             _currentQuiz = InitializeCurrentQuiz();
             ProcessQuestion();
         }
@@ -81,8 +85,7 @@ namespace MondainDeploy
                 _fullLexicon = new FullLexicon(new LexTableWrapper(connString, true));
             }
 
-            
-            CurrentStatus.Text = "";
+            ClearTextControl(CurrentStatus);
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Lexicon words: " + _fullLexicon.GetWordCount().ToString());
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Alphagrams: " + _fullLexicon.GetAlphagramCount().ToString());
 
@@ -103,7 +106,6 @@ namespace MondainDeploy
         }
 
         // workflow per question
-        private void ResetQuestion() => CurrentQuestionHistoryLabel.Text = "";
 
         private void MarkQuestionCorrect()
         {
@@ -123,7 +125,7 @@ namespace MondainDeploy
         private void MoveCurrentQuestionToAnswerHistory()
         {
             AnswerHistory.Text = PrependStringTo(AnswerHistory.Text, CurrentQuestionHistoryLabel.Text);
-            CurrentQuestionHistoryLabel.Text = "";
+            ClearTextControl(CurrentQuestionHistoryLabel);
         }
         private void AdvanceQuestion()
         {
@@ -182,11 +184,11 @@ namespace MondainDeploy
             if (!Page.IsValid)
                 return;
             var submittedAnswer = TBQuizAnswer.Text.ToUpper();
-            TBQuizAnswer.Text = "";
+            ClearTextControl(TBQuizAnswer);
 
             var AnswerSetDefaultText = "Answers displayed here";
             if (CurrentQuestionHistoryLabel.Text == AnswerSetDefaultText)
-                CurrentQuestionHistoryLabel.Text = "";
+                ClearTextControl(CurrentQuestionHistoryLabel);
 
             if (_currentQuiz.Finished)
             {
@@ -220,8 +222,9 @@ namespace MondainDeploy
             _currentQuiz.Finished = true;
             CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, "Quiz complete!");
             LabelCurrentQuestion.Text = "Quiz complete!";
-            LabelTotalSolutions.Text = "";
-            CurrentQuestionHistoryLabel.Text = "";
+            // todo: add params override for CTC
+            ClearTextControl(LabelTotalSolutions);
+            ClearTextControl(CurrentQuestionHistoryLabel);
         }
 
         // utility functions
