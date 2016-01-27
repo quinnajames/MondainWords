@@ -82,7 +82,7 @@ namespace MondainDeploy
             }
 
             
-            CurrentStatus.Text = String.Empty;
+            CurrentStatus.Text = "";
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Lexicon words: " + _fullLexicon.GetWordCount().ToString());
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Alphagrams: " + _fullLexicon.GetAlphagramCount().ToString());
 
@@ -102,8 +102,8 @@ namespace MondainDeploy
             return quiz;
         }
 
-        // Collect functions that do work to labels and text
-        private void ResetQuestion() => CurrentQuestionHistoryLabel.Text = string.Empty;
+        // workflow per question
+        private void ResetQuestion() => CurrentQuestionHistoryLabel.Text = "";
 
         private void MarkQuestionCorrect()
         {
@@ -123,7 +123,7 @@ namespace MondainDeploy
         private void MoveCurrentQuestionToAnswerHistory()
         {
             AnswerHistory.Text = PrependStringTo(AnswerHistory.Text, CurrentQuestionHistoryLabel.Text);
-            CurrentQuestionHistoryLabel.Text = String.Empty;
+            CurrentQuestionHistoryLabel.Text = "";
         }
         private void AdvanceQuestion()
         {
@@ -182,11 +182,11 @@ namespace MondainDeploy
             if (!Page.IsValid)
                 return;
             var submittedAnswer = TBQuizAnswer.Text.ToUpper();
-            TBQuizAnswer.Text = String.Empty;
+            TBQuizAnswer.Text = "";
 
             var AnswerSetDefaultText = "Answers displayed here";
             if (CurrentQuestionHistoryLabel.Text == AnswerSetDefaultText)
-                CurrentQuestionHistoryLabel.Text = String.Empty;
+                CurrentQuestionHistoryLabel.Text = "";
 
             if (_currentQuiz.Finished)
             {
@@ -209,30 +209,26 @@ namespace MondainDeploy
             MoveCurrentQuestionToAnswerHistory();
             MarkQuestionCorrect();
         }
-
-        protected void EndQuiz()
-        {
-            _currentQuiz.Finished = true;
-            CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, "Quiz complete!");
-            LabelCurrentQuestion.Text = "Quiz complete!";
-            LabelTotalSolutions.Text = String.Empty;
-            CurrentQuestionHistoryLabel.Text = String.Empty;
-        }
-
-
-        // all other functions
-
         protected void MarkMissedButton_Click(object sender, EventArgs e)
         {
             MarkQuestionMissed();
             AdvanceQuestion();
         }
 
+        protected void EndQuiz()
+        {
+            _currentQuiz.Finished = true;
+            CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, "Quiz complete!");
+            LabelCurrentQuestion.Text = "Quiz complete!";
+            LabelTotalSolutions.Text = "";
+            CurrentQuestionHistoryLabel.Text = "";
+        }
+
         // utility functions
 
-        //        private string Italicize(string str) => "<i>" + str + "</i>";
-        //        private string Embolden(string str) => "<strong>" + str + "</strong>";
-        //        private string Strike(string str) => "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
+//        private string Italicize(string str) => "<i>" + str + "</i>";
+//        private string Embolden(string str) => "<strong>" + str + "</strong>";
+//        private string Strike(string str) => "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
 
 
 
