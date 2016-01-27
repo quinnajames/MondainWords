@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MondainDeploy
 {
-    // FFE: Come up with a better class name than "FullLexicon."
+    // todo: Come up with a better class name than "FullLexicon."
     public class FullLexicon
     {
 
@@ -23,7 +23,7 @@ namespace MondainDeploy
         ///</remarks>
 
 
-        // FFE: Make this a derived class so that it can inherit from the second FullLexicon.
+        // todo: Make this a derived class so that it can inherit from the second FullLexicon.
         // Among other things this will allow swerving of the two lines of duplicated code.
         public FullLexicon(string inputPath)
         {
@@ -60,7 +60,7 @@ namespace MondainDeploy
             return Enumerable.Range(2, 14).ToList().ToDictionary(x => x, 
             // and values representing how many alphagrams there are at each length in the dictionary.
                 x => new List<string>(from kvp in AlphagramsToWords.ToList() where kvp.Key.Length == x select kvp.Key).Count);
-            // FFE: Could bake this into the DB, as it's constant values per lexicon.
+            // todo: Could bake this into the DB, as it's constant values per lexicon.
         }
 
         private Dictionary<string, WordData> InitWordsToMetadata(Dictionary<string, WordData> wordsToMeta, string path)
@@ -118,10 +118,10 @@ namespace MondainDeploy
         ///(Example: 2 questions, length 8, min prob 1, max prob 4.)
         ///Because of the way that probability is stored in the database, the customQuizLength validator can't really handle all these edge cases.
         ///This is currently handled by the Default code-behind page which just produces the smaller quiz.
-        ///FFE.
+        ///Todo: fix this.
 
 
-        ///Also FFE: a less complicated chain for determining the maxProb.
+        ///Also todo: a less complicated chain for determining the maxProb.
         ///Currently what happens is that in the code-behind file, if the user enters a meaningless maxProb (or minProb), it defaults to Constants.ProbabilityMaxDefault.
         ///Then that default probability (which is a number chosen to be higher than the actual meaningful limit of maxProb) gets sent to this function.
         ///This is all a bit inelegant.

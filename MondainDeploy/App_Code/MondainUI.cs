@@ -41,7 +41,7 @@ namespace MondainDeploy
             return PrependStringTo(secondString, firstString + "<br />");
         }
 
-        // FFE: refine the behavior of this function. See unit test.
+        // todo: refine the behavior of this function. See unit test.
         public static string PostpendLineTo(string secondString, string firstString)
         {
             return PrependStringTo(firstString + "<br />", secondString);
