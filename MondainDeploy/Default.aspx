@@ -128,7 +128,7 @@
                                          
                                         
 
-                                         <asp:TextBox ID="TBQuizAnswer" runat="server" Text="" OnTextChanged="AnswerBoxTextChanged" Width="250"></asp:TextBox><br/>
+                                         <asp:TextBox ID="TBQuizAnswer" runat="server" Text="" Width="250"></asp:TextBox><br/>
                                 <asp:Button ID="BTAnswer" runat="server" OnClick="SubmitAnswerButton_Click" Text="Answer" CssClass="btn btn-primary" />&nbsp;&nbsp;&nbsp;&nbsp;
                                       <asp:Button ID="BTMarkMissed" runat="server" OnClick="MarkMissedButton_Click" Text="Mark Missed" CssClass="btn" /><br/>       
 
