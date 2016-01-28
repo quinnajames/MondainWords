@@ -11,7 +11,7 @@ namespace MondainDeploy
         public static int TryParseWithDefault(string inputString, int defaultvalue)
         {
             int val;
-            if (!Int32.TryParse(inputString, out val))
+            if (!int.TryParse(inputString, out val))
                 val = defaultvalue;
             return val;
         }
