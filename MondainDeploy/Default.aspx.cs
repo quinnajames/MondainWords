@@ -80,8 +80,8 @@ namespace MondainDeploy
             }
 
             ClearTextControl(CurrentStatus);
-            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Lexicon words: " + _fullLexicon.GetWordCount().ToString());
-            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Alphagrams: " + _fullLexicon.GetAlphagramCount().ToString());
+            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Lexicon words: " + _fullLexicon.GetWordCount());
+            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Alphagrams: " + _fullLexicon.GetAlphagramCount());
 
             bool isBlankBingos = BlankBingoCheck.Checked;
             List<KeyValuePair<string, List<string>>> tempQuizATW = new List<KeyValuePair<string, List<string>>>();
@@ -151,7 +151,7 @@ namespace MondainDeploy
         }
         private void UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions)
         {
-            LabelTotalSolutions.Text = questionsCorrect.ToString() + " of " + totalQuestions.ToString();
+            LabelTotalSolutions.Text = questionsCorrect + " of " + totalQuestions;
         }
         private void UpdateStats()
         {
