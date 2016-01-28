@@ -79,6 +79,7 @@ namespace MondainDeploy
                         {
                             word = word.TrimEnd('+');
                             // IsNew is a token not being used right now. It's indicated by that + being trimmed out.
+                            // todo: Add option to show the IsNew token
                             tempWordData.IsNew = true;
                         }
                         else
