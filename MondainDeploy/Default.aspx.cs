@@ -71,17 +71,11 @@ namespace MondainDeploy
             int minProbValue = TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
             int maxProbValue = TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
-            // This is only declared to make the function call at the bottom coherent.
-            // May be a canary in the coalmine# here.
-            
-
             System.Configuration.Configuration rootWebConfig =
                 System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MondainDeploy");
-            System.Configuration.ConnectionStringSettings connString;
             if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
             {
-                connString =
-                    rootWebConfig.ConnectionStrings.ConnectionStrings["LocalSQLExpressConnectionString"];
+                var connString = rootWebConfig.ConnectionStrings.ConnectionStrings["LocalSQLExpressConnectionString"];
                 _fullLexicon = new FullLexicon(new LexTableWrapper(connString, true));
             }
 
