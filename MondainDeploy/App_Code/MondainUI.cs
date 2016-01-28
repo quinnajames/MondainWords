@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,11 @@ namespace MondainDeploy
         public static string PostpendLineTo(string secondString, string firstString)
         {
             return PrependStringTo(firstString + "<br />", secondString);
-        } 
+        }
+
+        public static string FormatMissedRightAnswer(string str)
+        {
+            return (Embolden(Italicize(str)));
+        }
     }
 }

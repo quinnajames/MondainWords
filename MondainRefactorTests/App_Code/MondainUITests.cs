@@ -3,6 +3,7 @@ using MondainDeploy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,6 +90,14 @@ namespace MondainDeploy.Tests
             string original_postpend = "car";
             string expected = "kat <br />car<br />";
             Assert.AreEqual(expected, MondainUI.PostpendLineTo(original, original_postpend));
+        }
+
+        [TestMethod()]
+        public void FormatTestRightAnswer()
+        {
+            string original = "string";
+            string expected = "<strong><i>string</i></strong>";
+            Assert.AreEqual(expected, MondainUI.FormatMissedRightAnswer(original));
         }
     }
 }
