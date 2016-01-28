@@ -26,7 +26,11 @@ namespace MondainDeploy
         public int CorrectWordCount, IncorrectWordCount, CurrentAnswerWordCount;
         public bool Finished { get; set; }
         public bool IsBlankBingos { get; set; }
-        public Quiz(int quizLength, int questionNumber, List<KeyValuePair<string, List<string>>> quizAlphaToWords, bool isBlankBingos)
+        /// <summary>
+        /// Creates a new quiz initialized at 1.
+        /// </summary>
+
+        public Quiz(int quizLength, List<KeyValuePair<string, List<string>>> quizAlphaToWords, bool isBlankBingos, int questionNumber = 1)
         {
             QuizLength = quizLength;
             QuestionNumber = questionNumber;

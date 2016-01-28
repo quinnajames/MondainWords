@@ -73,7 +73,7 @@ namespace MondainDeploy
 
             // This is only declared to make the function call at the bottom coherent.
             // May be a canary in the coalmine# here.
-            int temp_questionNumber = 1;
+            
 
             System.Configuration.Configuration rootWebConfig =
                 System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MondainDeploy");
@@ -100,7 +100,7 @@ namespace MondainDeploy
             if (tempQuizATW.Count != quizLengthValue)
                 quizLengthValue = tempQuizATW.Count;
 
-            var quiz = new Quiz(quizLengthValue, temp_questionNumber, tempQuizATW, isBlankBingos);
+            var quiz = new Quiz(quizLengthValue, tempQuizATW, isBlankBingos);
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Initialized quiz with " + quiz.QuizLength + " questions. ");
             return quiz;
         }
