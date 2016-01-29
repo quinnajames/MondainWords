@@ -9,7 +9,7 @@ namespace MondainDeploy
         public static readonly int WordLengthMinDefault = 7;
         public static readonly int WordLengthMaxDefault = 8;
         public static readonly int DefaultQuizLength = 10;
-        public static readonly int ProbabilityMinDefault = 0;
+        public static readonly int ProbabilityMinDefault = 1;
         public static readonly int ProbabilityMaxDefault = 99999;
 
     }
