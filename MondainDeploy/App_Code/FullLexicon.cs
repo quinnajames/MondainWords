@@ -42,7 +42,7 @@ namespace MondainDeploy
 
         private Dictionary<string, List<string>> InitAlphagramsToWords(Dictionary<string, WordData> wordsToMeta)
         {
-            Dictionary<string, List<string>> alphaToWords = new Dictionary<string, List<string>>();
+            var alphaToWords = new Dictionary<string, List<string>>();
             foreach (var wordsToMetaItem in wordsToMeta)
             {
                 // if there's no word matching the current alphagram, start a new alphagram/solution set
@@ -67,7 +67,7 @@ namespace MondainDeploy
         {
             try
             {
-                using (StreamReader sr = new StreamReader(path))
+                using (var sr = new StreamReader(path))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
