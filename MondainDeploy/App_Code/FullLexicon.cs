@@ -130,7 +130,7 @@ namespace MondainDeploy
         ///The only time we get errors is if the *minProb* is out of bounds to the right.
         public List<KeyValuePair<string, List<string>>> GetRandomQuizEntries(int returnsize, Random rnd, int minLength, int maxLength, int minProb, int maxProb)
         {
-            // A minimum probability under 1 is meaningless.
+            // A minimum probability under 1 means the same thing as a minimum probability of 1.
 
             List<KeyValuePair<string, List<string>>> shuffledList;
 
@@ -216,7 +216,8 @@ namespace MondainDeploy
             return new KeyValuePair<string, WordData>(wordToSearch, WordsToMetadata[wordToSearch]);
         }
         
-        // This should (probably) be moved out of FullLexicon.
+        // todo: Readd the function call I removed to create DB from text file as a new function in a separate class calling AddCurrentDirToPath
+        // todo: Move AddCurrentDirToPath to the separate class created by the readdition of its invocation to create DB from text file
         public static string AddCurrentDirToPath(string path)
         {
             var currentDir = Directory.GetCurrentDirectory();

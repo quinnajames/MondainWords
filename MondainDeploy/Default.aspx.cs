@@ -222,13 +222,6 @@ namespace MondainDeploy
             ClearTextControl(CurrentQuestionHistoryLabel);
         }
 
-        // utility functions
-
-//        private string Italicize(string str) => "<i>" + str + "</i>";
-//        private string Embolden(string str) => "<strong>" + str + "</strong>";
-//        private string Strike(string str) => "<span style=\"color:lightgray\"><del>" + str + "</del></span>";
-
-
 
     }
 
