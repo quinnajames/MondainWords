@@ -165,11 +165,10 @@ namespace MondainDeploy
             var ccw = _currentQuiz.CorrectWordCount;
             var icw = _currentQuiz.IncorrectWordCount;
 
-            // todo: change InvariantCulture to something else, it's apparently not intended to be used like this
             Label_StatsCorrectAlphagramFraction.Text = cc.ToString() + '/' + (cc + ic);
-            Label_StatsCorrectAlphagramPercent.Text = Math.Round(((double)cc / (cc + ic)) * 100, 2).ToString(CultureInfo.InvariantCulture) + "%";
+            Label_StatsCorrectAlphagramPercent.Text = Math.Round(((double)cc / (cc + ic)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%";
             Label_StatsCorrectWordFraction.Text = ccw.ToString() + '/' + (ccw + icw);
-            Label_StatsCorrectWordPercent.Text = Math.Round(((double)ccw / (ccw + icw)) * 100, 2).ToString(CultureInfo.InvariantCulture) + "%";
+            Label_StatsCorrectWordPercent.Text = Math.Round(((double)ccw / (ccw + icw)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%";
 
         }
 
