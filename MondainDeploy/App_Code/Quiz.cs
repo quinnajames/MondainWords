@@ -39,8 +39,7 @@ namespace MondainDeploy
             CurrentQuestion = QuizAlphaToWords[QuestionNumber - 1];
             CurrentAnswerList = QuizAlphaToWords[QuestionNumber - 1].Value;
             CurrentAnswerWordCount = QuizAlphaToWords[QuestionNumber - 1].Value.Count;
-            CorrectAlphagramCount = IncorrectAlphagramCount = 0;
-            CorrectWordCount = IncorrectWordCount = 0;
+            CorrectAlphagramCount = IncorrectAlphagramCount = CorrectWordCount = IncorrectWordCount = 0;
             Finished = false;
 
             CurrentQuizAnswerStatsList = new List<QuizAnswer>();
