@@ -61,7 +61,7 @@ namespace MondainDeploy
                 return;
             ClearTextControl(CurrentQuestionHistoryLabel);
             _currentQuiz = InitializeCurrentQuiz();
-            ProcessQuestion();
+            QuizProcess.ProcessQuestion(ref _currentQuiz, LabelCurrentQuestion, ref LabelTotalSolutions);
         }
         private Quiz InitializeCurrentQuiz()
         {
@@ -83,18 +83,22 @@ namespace MondainDeploy
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Lexicon words: " + _fullLexicon.GetWordCount());
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Alphagrams: " + _fullLexicon.GetAlphagramCount());
 
+
+            List<KeyValuePair<string, List<string>>> tempQuizAlphaToWords;
             bool isBlankBingos = BlankBingoCheck.Checked;
-            List<KeyValuePair<string, List<string>>> tempQuizATW = new List<KeyValuePair<string, List<string>>>();
             if (!isBlankBingos)
-                tempQuizATW = _fullLexicon.GetRandomQuizEntries(quizLengthValue,
-                    new Random(), minValue, maxValue, minProbValue, maxProbValue);
+            {
+                   tempQuizAlphaToWords = _fullLexicon.GetRandomQuizEntries(quizLengthValue,
+                    new Random(), minValue, maxValue, minProbValue, maxProbValue);             
+            }
+
             else
-                tempQuizATW = _fullLexicon.GetBlankBingoEntries(quizLengthValue, new Random(), minValue, maxValue);
+                tempQuizAlphaToWords = _fullLexicon.GetBlankBingoEntries(quizLengthValue, new Random(), minValue, maxValue);
 
-            if (tempQuizATW.Count != quizLengthValue)
-                quizLengthValue = tempQuizATW.Count;
+            if (tempQuizAlphaToWords.Count != quizLengthValue)
+                quizLengthValue = tempQuizAlphaToWords.Count;
 
-            var quiz = new Quiz(quizLengthValue, tempQuizATW, isBlankBingos);
+            var quiz = new Quiz(quizLengthValue, tempQuizAlphaToWords, isBlankBingos);
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Initialized quiz with " + quiz.QuizLength + " questions. ");
             return quiz;
         }
@@ -131,24 +135,14 @@ namespace MondainDeploy
                 if (_currentQuiz.QuestionNumber < _currentQuiz.QuizLength)
                 {
                     _currentQuiz.QuestionNumber++;
-                    ProcessQuestion();
+                    QuizProcess.ProcessQuestion(ref _currentQuiz, LabelCurrentQuestion, ref LabelTotalSolutions);
                 }
                 else
                     EndQuiz();
             }
         }
-        private void ProcessQuestion()
-        {
-            _currentQuiz.CurrentQuestion = _currentQuiz.QuizAlphaToWords[_currentQuiz.QuestionNumber - 1];
-            _currentQuiz.CurrentAnswerList = _currentQuiz.CurrentQuestion.Value;
-            LabelCurrentQuestion.Text = "#" + _currentQuiz.QuestionNumber + ": " + _currentQuiz.CurrentQuestion.Key;
-            if (_currentQuiz.IsBlankBingos)
-                LabelCurrentQuestion.Text += Embolden("?");
-            _currentQuiz.ResetCurrentAnswerWordCount();
-            UpdateTotalSolutionsLabelWhenCorrect(_currentQuiz.GetBooleanAnswersThisQuestion()[0],
-        _currentQuiz.GetBooleanAnswersThisQuestion()[0] + _currentQuiz.GetBooleanAnswersThisQuestion()[1]); ;
 
-        }
+        /// todo: Refactor everything that uses this into QuizProcess and delete this version of the method
         private void UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions)
         {
             LabelTotalSolutions.Text = questionsCorrect + " of " + totalQuestions;
@@ -180,8 +174,8 @@ namespace MondainDeploy
             var submittedAnswer = TBQuizAnswer.Text.ToUpper();
             ClearTextControl(TBQuizAnswer);
 
-            var AnswerSetDefaultText = "Answers displayed here";
-            if (CurrentQuestionHistoryLabel.Text == AnswerSetDefaultText)
+            const string answerSetDefaultText = "Answers displayed here";
+            if (CurrentQuestionHistoryLabel.Text == answerSetDefaultText)
                 ClearTextControl(CurrentQuestionHistoryLabel);
 
             if (_currentQuiz.Finished)
