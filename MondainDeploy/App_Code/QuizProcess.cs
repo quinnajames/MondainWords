@@ -7,24 +7,23 @@ namespace MondainDeploy
 {
     public static class QuizProcess
     {
-        public static string ProcessQuestion(ref Quiz _currentQuiz, global::System.Web.UI.WebControls.Label LabelCurrentQuestion, ref global::System.Web.UI.WebControls.Label LabelTotalSolutions)
+        public static string ProcessQuestion(ref Quiz currentQuiz, System.Web.UI.WebControls.Label labelCurrentQuestion, ref System.Web.UI.WebControls.Label labelTotalSolutions)
         {
-            var returnstring = LabelCurrentQuestion.Text;
-            _currentQuiz.CurrentQuestion = _currentQuiz.QuizAlphaToWords[_currentQuiz.QuestionNumber - 1];
-            _currentQuiz.CurrentAnswerList = _currentQuiz.CurrentQuestion.Value;
-            returnstring = "#" + _currentQuiz.QuestionNumber + ": " + _currentQuiz.CurrentQuestion.Key;
-            if (_currentQuiz.IsBlankBingos)
+            currentQuiz.CurrentQuestion = currentQuiz.QuizAlphaToWords[currentQuiz.QuestionNumber - 1];
+            currentQuiz.CurrentAnswerList = currentQuiz.CurrentQuestion.Value;
+            var returnstring = "#" + currentQuiz.QuestionNumber + ": " + currentQuiz.CurrentQuestion.Key;
+            if (currentQuiz.IsBlankBingos)
                 returnstring += MondainUI.Embolden("?");
-            _currentQuiz.ResetCurrentAnswerWordCount();
-            LabelTotalSolutions = UpdateTotalSolutionsLabelWhenCorrect(_currentQuiz.GetBooleanAnswersThisQuestion()[0],
-                _currentQuiz.GetBooleanAnswersThisQuestion()[0] + _currentQuiz.GetBooleanAnswersThisQuestion()[1], LabelTotalSolutions);
+            currentQuiz.ResetCurrentAnswerWordCount();
+            labelTotalSolutions = UpdateTotalSolutionsLabelWhenCorrect(currentQuiz.GetBooleanAnswersThisQuestion()[0],
+                currentQuiz.GetBooleanAnswersThisQuestion()[0] + currentQuiz.GetBooleanAnswersThisQuestion()[1], labelTotalSolutions);
             return returnstring;
         }
 
-        public static global::System.Web.UI.WebControls.Label UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions, global::System.Web.UI.WebControls.Label LabelTotalSolutions)
+        public static System.Web.UI.WebControls.Label UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions, System.Web.UI.WebControls.Label labelTotalSolutions)
         {
-            LabelTotalSolutions.Text = questionsCorrect + " of " + totalQuestions;
-            return LabelTotalSolutions;
+            labelTotalSolutions.Text = questionsCorrect + " of " + totalQuestions;
+            return labelTotalSolutions;
         }
     }
 }
