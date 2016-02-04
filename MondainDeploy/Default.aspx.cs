@@ -115,7 +115,7 @@ namespace MondainDeploy
             _currentQuiz.IncrementCounts(false);
             foreach (var word in _currentQuiz.CurrentAnswerList)
             {
-                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, MondainUI.FormatMissedRightAnswer(word));
+                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, FormatMissedRightAnswer(word));
             }
             CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, "Question " + _currentQuiz.QuestionNumber + Embolden(" incorrect") + "!");
             MoveCurrentQuestionToAnswerHistory();
