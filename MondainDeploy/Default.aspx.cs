@@ -131,7 +131,7 @@ namespace MondainDeploy
                 CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, "Quiz is already finished!");
             else
             {
-                UpdateStats();
+                QuizProcess.UpdateStats(ref _currentQuiz, ref Label_StatsCorrectAlphagramFraction, ref Label_StatsCorrectAlphagramPercent, ref Label_StatsCorrectWordFraction, ref Label_StatsCorrectWordPercent);
                 if (_currentQuiz.QuestionNumber < _currentQuiz.QuizLength)
                 {
                     _currentQuiz.QuestionNumber++;
@@ -142,26 +142,6 @@ namespace MondainDeploy
             }
         }
 
-        private void UpdateStats()
-        {
-            var correct = _currentQuiz.GetBooleanAnswersThisQuestion();
-            
-            _currentQuiz.CorrectWordCount += correct[0];
-            _currentQuiz.IncorrectWordCount += correct[1];
-
-            var cc = _currentQuiz.CorrectAlphagramCount;
-            var ic = _currentQuiz.IncorrectAlphagramCount;
-            var ccw = _currentQuiz.CorrectWordCount;
-            var icw = _currentQuiz.IncorrectWordCount;
-
-            Label_StatsCorrectAlphagramFraction.Text = cc.ToString() + '/' + (cc + ic);
-            Label_StatsCorrectAlphagramPercent.Text = Math.Round(((double)cc / (cc + ic)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%";
-            Label_StatsCorrectWordFraction.Text = ccw.ToString() + '/' + (ccw + icw);
-            Label_StatsCorrectWordPercent.Text = Math.Round(((double)ccw / (ccw + icw)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%";
-
-        }
-
-        // workflow per answer
         protected void SubmitAnswerButton_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
