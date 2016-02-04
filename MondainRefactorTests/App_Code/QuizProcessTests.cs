@@ -24,5 +24,12 @@ namespace MondainDeploy.Tests
         //{
         //    Assert.Fail();
         //}
+
+        //todo: Add UpdateStats test
+        //[TestMethod()]
+        //public void UpdateStatsTest()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }
