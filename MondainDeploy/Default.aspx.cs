@@ -142,11 +142,6 @@ namespace MondainDeploy
             }
         }
 
-        /// todo: Refactor everything that uses this into QuizProcess and delete this version of the method
-        private void UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions)
-        {
-            LabelTotalSolutions.Text = questionsCorrect + " of " + totalQuestions;
-        }
         private void UpdateStats()
         {
             var correct = _currentQuiz.GetBooleanAnswersThisQuestion();
@@ -188,8 +183,9 @@ namespace MondainDeploy
                 _currentQuiz.SetWordAsCorrect(submittedAnswer);
                 _currentQuiz.CurrentAnswerList.Remove(submittedAnswer);
                 CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, submittedAnswer);
-                UpdateTotalSolutionsLabelWhenCorrect(_currentQuiz.GetBooleanAnswersThisQuestion()[0],
-                    _currentQuiz.GetBooleanAnswersThisQuestion()[0] + _currentQuiz.GetBooleanAnswersThisQuestion()[1]);
+                // todo: Look at whether UpdateTotalSolutionsLabelWhenCorrect should return a string or a label
+                LabelTotalSolutions.Text = QuizProcess.UpdateTotalSolutionsLabelWhenCorrect(_currentQuiz.GetBooleanAnswersThisQuestion()[0],
+                    _currentQuiz.GetBooleanAnswersThisQuestion()[0] + _currentQuiz.GetBooleanAnswersThisQuestion()[1], LabelTotalSolutions).Text;
             }
             else
                 CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, Strike(submittedAnswer));
