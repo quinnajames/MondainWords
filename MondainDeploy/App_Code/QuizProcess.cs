@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.UI.WebControls;
 
 namespace MondainDeploy
 {
     public class QuizProcess
     {
-        public static string ProcessQuestion(ref Quiz currentQuiz, System.Web.UI.WebControls.Label labelCurrentQuestion, ref System.Web.UI.WebControls.Label labelTotalSolutions)
+        public static string ProcessQuestion(ref Quiz currentQuiz, Label labelCurrentQuestion, ref Label labelTotalSolutions)
         {
             currentQuiz.CurrentQuestion = currentQuiz.QuizAlphaToWords[currentQuiz.QuestionNumber - 1];
             currentQuiz.CurrentAnswerList = currentQuiz.CurrentQuestion.Value;
@@ -22,13 +19,14 @@ namespace MondainDeploy
             return returnstring;
         }
 
-        public static System.Web.UI.WebControls.Label UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions, System.Web.UI.WebControls.Label labelTotalSolutions)
+        public static Label UpdateTotalSolutionsLabelWhenCorrect(int questionsCorrect, int totalQuestions, Label labelTotalSolutions)
         {
             labelTotalSolutions.Text = questionsCorrect + " of " + totalQuestions;
             return labelTotalSolutions;
         }
 
-        public static void UpdateStats(ref Quiz currentQuiz, ref Label labelStatsCorrectAlphagramFraction, ref Label labelStatsCorrectAlphagramPercent, ref Label labelStatsCorrectWordFraction, ref Label labelStatsCorrectWordPercent)
+        public static void UpdateStats(ref Quiz currentQuiz, ref Label labelStatsCorrectAlphagramFraction, ref Label labelStatsCorrectAlphagramPercent, 
+            ref Label labelStatsCorrectWordFraction, ref Label labelStatsCorrectWordPercent)
         {
             var correct = currentQuiz.GetBooleanAnswersThisQuestion();
 
