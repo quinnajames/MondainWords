@@ -127,8 +127,9 @@ namespace MondainDeploy
         }
         private void AdvanceQuestion()
         {
+            const string quizAlreadyFinishedText = "Error: Quiz is already completed!";
             if (_currentQuiz.Finished)
-                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, "Quiz is already finished!");
+                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, quizAlreadyFinishedText);
             else
             {
                 QuizProcess.UpdateStats(ref _currentQuiz, ref Label_StatsCorrectAlphagramFraction, ref Label_StatsCorrectAlphagramPercent, ref Label_StatsCorrectWordFraction, ref Label_StatsCorrectWordPercent);
@@ -150,12 +151,13 @@ namespace MondainDeploy
             ClearTextControl(TBQuizAnswer);
 
             const string answerSetDefaultText = "Answers displayed here";
+            const string quizAlreadyFinishedText = "Error: Quiz is already completed!";
             if (CurrentQuestionHistoryLabel.Text == answerSetDefaultText)
                 ClearTextControl(CurrentQuestionHistoryLabel);
 
             if (_currentQuiz.Finished)
             {
-                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, "Error: Quiz is already completed!");
+                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, quizAlreadyFinishedText);
                 return;
             }
             if (_currentQuiz.CurrentAnswerList.Contains(submittedAnswer))
@@ -183,9 +185,10 @@ namespace MondainDeploy
 
         protected void EndQuiz()
         {
+            const string quizFinishedText = "Quiz complete!"; 
             _currentQuiz.Finished = true;
-            CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, "Quiz complete!");
-            LabelCurrentQuestion.Text = "Quiz complete!";
+            CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, quizFinishedText);
+            LabelCurrentQuestion.Text = quizFinishedText;
             // todo: add params override for CTC
             ClearTextControl(LabelTotalSolutions);
             ClearTextControl(CurrentQuestionHistoryLabel);
