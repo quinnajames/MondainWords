@@ -17,28 +17,28 @@ namespace MondainDeploy.Tests
         {
             string original = "2";
             int expected = 2;
-            Assert.AreEqual(expected, MondainUI.TryParseWithDefault(original, 0));
+            Assert.AreEqual(expected, MondainUI.TryIntParseWithDefault(original, 0));
         }
 
         public void TryParseWithDefaultTest1()
         {
             string original = "cat_🐱";
             int expected = 0;
-            Assert.AreEqual(expected, MondainUI.TryParseWithDefault(original, 0));
+            Assert.AreEqual(expected, MondainUI.TryIntParseWithDefault(original, 0));
         }
 
         public void TryParseWithDefaultTest2()
         {
             string original = "4.5";
             int expected = 4;
-            Assert.AreEqual(expected, MondainUI.TryParseWithDefault(original, 0));
+            Assert.AreEqual(expected, MondainUI.TryIntParseWithDefault(original, 0));
         }
 
         public void TryParseWithDefaultTest3()
         {
             string original = "-5.5";
             int expected = -6;
-            Assert.AreEqual(expected, MondainUI.TryParseWithDefault(original, 0));
+            Assert.AreEqual(expected, MondainUI.TryIntParseWithDefault(original, 0));
         }
 
         [TestMethod()]
