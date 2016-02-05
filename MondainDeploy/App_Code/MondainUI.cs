@@ -2,7 +2,7 @@
 {
     public static class MondainUI
     {
-        public static int TryParseWithDefault(string inputString, int defaultvalue)
+        public static int TryIntParseWithDefault(string inputString, int defaultvalue)
         {
             int val;
             if (!int.TryParse(inputString, out val))

@@ -88,8 +88,8 @@ namespace MondainDeploy
                         }
                         // Writing splitLine[0] instead of word here makes the file format transparent.
                         tempWordData.Alphagram = AlphagramifyString(splitLine[0]);
-                        tempWordData.Probability = MondainUI.TryParseWithDefault(splitLine[1], 1);
-                        tempWordData.Playability = MondainUI.TryParseWithDefault(splitLine[2], 1);
+                        tempWordData.Probability = MondainUI.TryIntParseWithDefault(splitLine[1], 1);
+                        tempWordData.Playability = MondainUI.TryIntParseWithDefault(splitLine[2], 1);
                         tempWordData.Definition = splitLine[3];
                         wordsToMeta.Add(word, tempWordData);
                     }

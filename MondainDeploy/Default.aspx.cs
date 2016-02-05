@@ -65,11 +65,11 @@ namespace MondainDeploy
         }
         private Quiz InitializeCurrentQuiz()
         {
-            int quizLengthValue = TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
-            int minValue = TryParseWithDefault(MinDD.SelectedValue, Constants.WordLengthMinDefault);
-            int maxValue = TryParseWithDefault(MaxDD.SelectedValue, Constants.WordLengthMaxDefault);
-            int minProbValue = TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
-            int maxProbValue = TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
+            var quizLengthValue = TryIntParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
+            var minValue = TryIntParseWithDefault(MinDD.SelectedValue, Constants.WordLengthMinDefault);
+            var maxValue = TryIntParseWithDefault(MaxDD.SelectedValue, Constants.WordLengthMaxDefault);
+            var minProbValue = TryIntParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
+            var maxProbValue = TryIntParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
             System.Configuration.Configuration rootWebConfig =
                 System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MondainDeploy");
@@ -203,9 +203,9 @@ namespace MondainDeploy
         {
             try
             {
-                int quizLengthValue = TryParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
-                int minProbValue = TryParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
-                int maxProbValue = TryParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
+                var quizLengthValue = TryIntParseWithDefault(TBQuizLength.Text, Constants.DefaultQuizLength);
+                var minProbValue = TryIntParseWithDefault(MinProb.Text, Constants.ProbabilityMinDefault);
+                var maxProbValue = TryIntParseWithDefault(MaxProb.Text, Constants.ProbabilityMaxDefault);
 
                 args.IsValid = quizLengthValue - 1 <= maxProbValue - minProbValue;
             }
