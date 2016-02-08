@@ -54,6 +54,9 @@ namespace MondainDeploy
 
         }
 
+        /// <summary>
+        /// Marks a single word in a quiz as correctly answered.
+        /// </summary>
         public void SetWordAsCorrect(string word)
         {
             foreach (var kvp in CurrentQuizAnswerStatsList.Where(kvp => kvp.Word == word))
@@ -62,7 +65,10 @@ namespace MondainDeploy
             }
         }
 
-        public void ResetCurrentAnswerWordCount()
+        /// <summary>
+        /// Resets the # of answers and correct/incorrect stats when starting a new question.
+        /// </summary>
+        public void ResetCurrentAnswerStats()
         {
             CurrentAnswerWordCount = QuizAlphaToWords[QuestionNumber - 1].Value.Count;
 

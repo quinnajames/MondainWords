@@ -24,7 +24,7 @@ namespace MondainDeploy.Tests
         //}
 
         //[TestMethod()]
-        //public void ResetCurrentAnswerWordCountTest()
+        //public void ResetCurrentAnswerStatsTest()
         //{
         //    Assert.Fail();
         //}

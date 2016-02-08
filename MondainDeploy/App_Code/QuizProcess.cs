@@ -13,7 +13,7 @@ namespace MondainDeploy
             var returnstring = "#" + currentQuiz.QuestionNumber + ": " + currentQuiz.CurrentQuestion.Key;
             if (currentQuiz.IsBlankBingos)
                 returnstring += MondainUI.Embolden("?");
-            currentQuiz.ResetCurrentAnswerWordCount();
+            currentQuiz.ResetCurrentAnswerStats();
             labelTotalSolutions = UpdateTotalSolutionsLabelWhenCorrect(currentQuiz.GetBooleanAnswersThisQuestion()[0],
                 currentQuiz.GetBooleanAnswersThisQuestion()[0] + currentQuiz.GetBooleanAnswersThisQuestion()[1], labelTotalSolutions);
             return returnstring;
