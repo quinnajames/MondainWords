@@ -3,7 +3,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <%--<link href="Style2.css" rel="stylesheet" />--%>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
@@ -122,8 +121,7 @@
                     <asp:Label ID="LabelCurrentQuestion" runat="server" Text="#0: none" CssClass="h4"/><br/>
                                 Total solutions: <asp:Label ID="LabelTotalSolutions" runat="server" Text=""></asp:Label><br/>
                     Correct answers:<br/> <asp:Label ID="CurrentQuestionHistoryLabel" runat="server" Text=""></asp:Label>        
-                                     
-<%--                                     <asp:Panel ID="Panel1" runat="server">--%>
+
                                      <asp:Panel ID="Panel1" runat="server" defaultbutton="BTAnswer">
                                          
                                         
