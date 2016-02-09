@@ -57,6 +57,7 @@ namespace MondainDeploy
         /// <summary>
         /// Marks a single word in a quiz as correctly answered.
         /// </summary>
+        /// <param name="word">A single solution to an alphagram.</param>
         public void SetWordAsCorrect(string word)
         {
             foreach (var kvp in CurrentQuizAnswerStatsList.Where(kvp => kvp.Word == word))
@@ -80,6 +81,10 @@ namespace MondainDeploy
 
         }
 
+        /// <summary>
+        /// Depending on if the question was correct, increases the correct or incorrect alphagram stats count.
+        /// </summary>
+        /// <param name="isCorrect">Whether or not the answer was correct.</param>
         public void IncrementCounts(bool isCorrect)
         {
             if (isCorrect)
@@ -87,6 +92,11 @@ namespace MondainDeploy
             else
                 IncorrectAlphagramCount++;
         }
+
+
+        /// <summary>
+        /// Retrieve an array consisting of the correct and incorrect answers on the current alphagram/question.
+        /// </summary>
         public int[] GetBooleanAnswersThisQuestion()
         {
             int[] correct = { 0, 0 };
@@ -109,6 +119,11 @@ namespace MondainDeploy
         public string Word { get; set; }
         public bool IsCorrect { get; set; }
 
+        /// <summary>
+        /// QuizAnswer constructor. Simply sets params equal to input.
+        /// </summary>
+        /// <param name="word">An individual solution to an alphagram.</param>
+        /// <param name="isCorrect">Whether the word has been answered correctly.</param>
         public QuizAnswer(string word, bool isCorrect)
         {
             Word = word;
