@@ -67,9 +67,6 @@
   <ItemGroup>
     <Content Include="Resources\TestLexicon.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Web.config" />
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
