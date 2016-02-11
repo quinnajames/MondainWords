@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI.WebControls;
 
@@ -25,9 +26,10 @@ namespace MondainDeploy
             return labelTotalSolutions;
         }
 
-        public static void UpdateStats(ref Quiz currentQuiz, ref Label labelStatsCorrectAlphagramFraction, ref Label labelStatsCorrectAlphagramPercent, 
-            ref Label labelStatsCorrectWordFraction, ref Label labelStatsCorrectWordPercent)
+        public static Dictionary<string, string> UpdateStats(ref Quiz currentQuiz)
         {
+            
+
             var correct = currentQuiz.GetBooleanAnswersThisQuestion();
 
             currentQuiz.CorrectWordCount += correct[0];
@@ -38,11 +40,15 @@ namespace MondainDeploy
             var ccw = currentQuiz.CorrectWordCount;
             var icw = currentQuiz.IncorrectWordCount;
 
-            labelStatsCorrectAlphagramFraction.Text = cc.ToString() + '/' + (cc + ic);
-            labelStatsCorrectAlphagramPercent.Text = Math.Round(((double)cc / (cc + ic)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%";
-            labelStatsCorrectWordFraction.Text = ccw.ToString() + '/' + (ccw + icw);
-            labelStatsCorrectWordPercent.Text = Math.Round(((double)ccw / (ccw + icw)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%";
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("labelStatsCorrectAlphagramFraction", cc.ToString() + '/' + (cc + ic));
+            dictionary.Add("labelStatsCorrectAlphagramPercent", Math.Round(((double)cc / (cc + ic)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%");
+            dictionary.Add("labelStatsCorrectWordFraction", ccw.ToString() + '/' + (ccw + icw));
+            dictionary.Add("labelStatsCorrectWordPercent", Math.Round(((double)ccw / (ccw + icw)) * 100, 2).ToString(CultureInfo.CurrentCulture) + "%");
 
+            return dictionary;
         }
+
+        
     }
 }

@@ -132,7 +132,14 @@ namespace MondainDeploy
                 CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, quizAlreadyFinishedText);
             else
             {
-                QuizProcess.UpdateStats(ref _currentQuiz, ref Label_StatsCorrectAlphagramFraction, ref Label_StatsCorrectAlphagramPercent, ref Label_StatsCorrectWordFraction, ref Label_StatsCorrectWordPercent);
+                var statskvp = QuizProcess.UpdateStats(ref _currentQuiz);
+                
+                Label_StatsCorrectAlphagramFraction.Text = statskvp["labelStatsCorrectAlphagramFraction"];
+                Label_StatsCorrectAlphagramPercent.Text = statskvp["labelStatsCorrectAlphagramPercent"];
+                Label_StatsCorrectWordFraction.Text = statskvp["labelStatsCorrectWordFraction"];
+                Label_StatsCorrectWordPercent.Text = statskvp["labelStatsCorrectWordPercent"];
+
+
                 if (_currentQuiz.QuestionNumber < _currentQuiz.QuizLength)
                 {
                     _currentQuiz.QuestionNumber++;
