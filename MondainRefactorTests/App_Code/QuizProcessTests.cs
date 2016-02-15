@@ -26,7 +26,6 @@ namespace MondainDeploy.Tests
         //    Assert.Fail();
         //}
 
-        //todo: Add UpdateStats test
         [TestMethod()]
         public void UpdateStatsTest()
         {
@@ -43,9 +42,9 @@ namespace MondainDeploy.Tests
             mockQuiz.IncrementCounts(false);
             string [] expected = new string[4];
             expected[0] = "0/1";
-            //expected[1] = "";
-            //expected[2] = "";
-            //expected[3] = "";
+            expected[1] = "0%";
+            expected[2] = "1/2";
+            expected[3] = "50%";
             Assert.AreEqual(expected[0], QuizProcess.UpdateStats(ref mockQuiz)["labelStatsCorrectAlphagramFraction"]);
                 
         }
