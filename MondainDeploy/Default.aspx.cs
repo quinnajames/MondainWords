@@ -127,9 +127,8 @@ namespace MondainDeploy
         }
         private void AdvanceQuestion()
         {
-            const string quizAlreadyFinishedText = "Error: Quiz is already completed!";
             if (_currentQuiz.Finished)
-                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, quizAlreadyFinishedText);
+                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, Constants.QuizAlreadyFinishedText);
             else
             {
                 var statskvp = QuizProcess.UpdateStats(ref _currentQuiz);
@@ -157,14 +156,12 @@ namespace MondainDeploy
             var submittedAnswer = TBQuizAnswer.Text.ToUpper();
             ClearTextControl(TBQuizAnswer);
 
-            const string answerSetDefaultText = "Answers displayed here";
-            const string quizAlreadyFinishedText = "Error: Quiz is already completed!";
-            if (CurrentQuestionHistoryLabel.Text == answerSetDefaultText)
+            if (CurrentQuestionHistoryLabel.Text == Constants.AnswerSetDefaultText)
                 ClearTextControl(CurrentQuestionHistoryLabel);
 
             if (_currentQuiz.Finished)
             {
-                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, quizAlreadyFinishedText);
+                CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, Constants.QuizAlreadyFinishedText);
                 return;
             }
             if (_currentQuiz.CurrentAnswerList.Contains(submittedAnswer))

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.SessionState;
 
 namespace MondainDeploy
 {
@@ -11,6 +12,7 @@ namespace MondainDeploy
         public static readonly int DefaultQuizLength = 10;
         public static readonly int ProbabilityMinDefault = 1;
         public static readonly int ProbabilityMaxDefault = 99999;
-
+        public static readonly string AnswerSetDefaultText = "Answers displayed here";
+        public static readonly string QuizAlreadyFinishedText = "Error: Quiz is already completed!";
     }
 }
