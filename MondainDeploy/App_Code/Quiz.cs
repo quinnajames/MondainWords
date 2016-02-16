@@ -117,16 +117,31 @@ namespace MondainDeploy
     public class QuizAnswer
     {
         public string Word { get; set; }
+        public string WordDisplayString { get; set; }
         public bool IsCorrect { get; set; }
 
         /// <summary>
-        /// QuizAnswer constructor. Simply sets params equal to input.
+        /// QuizAnswer 2-argument constructor. Sets WordDisplayString and Word equal, otherwise params = input.
         /// </summary>
         /// <param name="word">An individual solution to an alphagram.</param>
         /// <param name="isCorrect">Whether the word has been answered correctly.</param>
         public QuizAnswer(string word, bool isCorrect)
         {
             Word = word;
+            WordDisplayString = word;
+            IsCorrect = isCorrect;
+        }
+
+        /// <summary>
+        /// QuizAnswer 3-argument constructor. For use when WordDisplayString should be specified explicitly.
+        /// </summary>
+        /// <param name="word">An individual solution to an alphagram.</param>
+        /// <param name="isCorrect">Whether the word has been answered correctly.</param>
+        /// <param name="wordDisplayString">Word with lexicon symbols in use.</param>
+        public QuizAnswer(string word, bool isCorrect, string wordDisplayString)
+        {
+            Word = word;
+            WordDisplayString = wordDisplayString;
             IsCorrect = isCorrect;
         }
     }
