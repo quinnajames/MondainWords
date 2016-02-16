@@ -170,8 +170,10 @@ namespace MondainDeploy
                 _currentQuiz.CurrentAnswerList.Remove(submittedAnswer);
                 CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, submittedAnswer);
                 // todo: Look at whether UpdateTotalSolutionsLabelWhenCorrect should return a string or a label
-                LabelTotalSolutions.Text = QuizProcess.UpdateTotalSolutionsLabelWhenCorrect(_currentQuiz.GetBooleanAnswersThisQuestion()[0],
-                    _currentQuiz.GetBooleanAnswersThisQuestion()[0] + _currentQuiz.GetBooleanAnswersThisQuestion()[1], LabelTotalSolutions).Text;
+                var correctAnswerCount = _currentQuiz.GetBooleanAnswersThisQuestion()[0];
+                var incorrectAnswerCount = _currentQuiz.GetBooleanAnswersThisQuestion()[1];
+                LabelTotalSolutions.Text = QuizProcess.UpdateTotalSolutionsLabelWhenCorrect(correctAnswerCount,
+                    correctAnswerCount + incorrectAnswerCount, LabelTotalSolutions).Text;
             }
             else
                 CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, Strike(submittedAnswer));
