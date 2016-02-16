@@ -7,6 +7,7 @@ namespace MondainDeploy
 {
     public class QuizProcess
     {
+        // todo: make labelTotalSolutions a non-ref term by changing UpdateTotalSolutionsLabelWhenCorrect
         public static string ProcessQuestion(ref Quiz currentQuiz, Label labelCurrentQuestion, ref Label labelTotalSolutions)
         {
             currentQuiz.CurrentQuestion = currentQuiz.QuizAlphaToWords[currentQuiz.QuestionNumber - 1];
