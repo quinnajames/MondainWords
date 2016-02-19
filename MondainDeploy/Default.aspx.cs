@@ -61,6 +61,7 @@ namespace MondainDeploy
                 return;
             ClearTextControl(CurrentQuestionHistoryLabel);
             _currentQuiz = InitializeCurrentQuiz();
+            LabelCurrentQuestion.Text = $"#{_currentQuiz.QuestionNumber}: {_currentQuiz.CurrentQuestion.Key}";
             QuizProcess.ProcessQuestion(ref _currentQuiz, LabelCurrentQuestion, ref LabelTotalSolutions);
         }
         private Quiz InitializeCurrentQuiz()
@@ -80,6 +81,7 @@ namespace MondainDeploy
             }
 
             ClearTextControl(CurrentStatus);
+            CurrentStatus.Text = ("test");
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Lexicon words: " + _fullLexicon.GetWordCount());
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Alphagrams: " + _fullLexicon.GetAlphagramCount());
 
@@ -100,8 +102,9 @@ namespace MondainDeploy
                 quizLengthValue = tempQuizAlphaToWords.Count;
 
             var quiz = new Quiz(quizLengthValue, tempQuizAlphaToWords, isBlankBingos, usingLexSymbols);
-            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Initialized quiz with " + quiz.QuizLength + " questions. blah blah ");
+            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Initialized quiz with " + quiz.QuizLength + " questions.");
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Using lexicon symbols: " + usingLexSymbols.ToString());
+
             return quiz;
         }
 
@@ -146,12 +149,14 @@ namespace MondainDeploy
                 {
                     _currentQuiz.QuestionNumber++;
                     QuizProcess.ProcessQuestion(ref _currentQuiz, LabelCurrentQuestion, ref LabelTotalSolutions);
+                    LabelCurrentQuestion.Text = $"#{_currentQuiz.QuestionNumber}: {_currentQuiz.CurrentQuestion.Key}";
                 }
                 else
                     EndQuiz();
             }
         }
 
+        
 
         // todo: Decide whether best renamed to GetFormattedWord or kept like this
         private string GetWordWithLexiconSymbols(string word)
@@ -166,18 +171,6 @@ namespace MondainDeploy
             }
             return word;
         }
-        //{
-        //    var alphagram = FullLexicon.AlphagramifyString(word);
-        //    foreach (var kvp in _currentQuiz.)
-        //    {
-                
-        //        if (kvp.Key == alphagram)
-        //        {
-        //            return kvp.
-        //        }
-        //    }
-        //    if (_currentQuiz.QuizAlphaToWords.(FullLexicon.AlphagramifyString(word))
-        //    return word;
         
         protected void SubmitAnswerButton_Click(object sender, EventArgs e)
         {

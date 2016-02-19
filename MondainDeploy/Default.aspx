@@ -35,7 +35,7 @@
     <div class="container">
         <div class="page-header">
         <h1>Mondain Words</h1>
-        <p class="lead">Word quizzing program, created by Quinn James</p>
+        <p class="lead">Word quizzing program created by Quinn James</p>
       </div>
         <div id="progressbar">
            
