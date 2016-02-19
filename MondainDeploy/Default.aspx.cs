@@ -100,7 +100,8 @@ namespace MondainDeploy
                 quizLengthValue = tempQuizAlphaToWords.Count;
 
             var quiz = new Quiz(quizLengthValue, tempQuizAlphaToWords, isBlankBingos, usingLexSymbols);
-            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Initialized quiz with " + quiz.QuizLength + " questions. ");
+            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Initialized quiz with " + quiz.QuizLength + " questions. blah blah ");
+            CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Using lexicon symbols: " + usingLexSymbols.ToString());
             return quiz;
         }
 
