@@ -51,7 +51,9 @@ namespace MondainDeploy
             CurrentQuizAnswerStatsList = new List<QuizAnswer>();
             foreach (var str in CurrentAnswerList)
             {
-                CurrentQuizAnswerStatsList.Add(new QuizAnswer(str, false));
+                CurrentQuizAnswerStatsList.Add(showLexSymbols
+                    ? new QuizAnswer(str, false, str + "+")
+                    : new QuizAnswer(str, false));
             }
 
         }
