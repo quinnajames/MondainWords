@@ -36,7 +36,7 @@ namespace MondainDeploy.Tests
                 new KeyValuePair<string, List<string>>("EFHRRTU", new List<string>() {"FURTHER"}),
                 new KeyValuePair<string, List<string>>("AENORS", new List<string>() {"ARSENO", "REASON", "SENORA"}),
             };
-            var mockQuiz = new Quiz(3, mockAlphaToWords, false);
+            var mockQuiz = new Quiz(3, mockAlphaToWords, false, false);
             mockQuiz.SetWordAsCorrect("AB");
             mockQuiz.CurrentAnswerList.Remove("AB");
             mockQuiz.IncrementCounts(false);

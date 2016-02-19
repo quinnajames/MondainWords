@@ -86,6 +86,7 @@ namespace MondainDeploy
 
             List<KeyValuePair<string, List<string>>> tempQuizAlphaToWords;
             bool isBlankBingos = BlankBingoCheck.Checked;
+            bool usingLexSymbols = LexSymbolCheck.Checked;
             if (!isBlankBingos)
             {
                    tempQuizAlphaToWords = _fullLexicon.GetRandomQuizEntries(quizLengthValue,
@@ -98,7 +99,7 @@ namespace MondainDeploy
             if (tempQuizAlphaToWords.Count != quizLengthValue)
                 quizLengthValue = tempQuizAlphaToWords.Count;
 
-            var quiz = new Quiz(quizLengthValue, tempQuizAlphaToWords, isBlankBingos);
+            var quiz = new Quiz(quizLengthValue, tempQuizAlphaToWords, isBlankBingos, usingLexSymbols);
             CurrentStatus.Text = PostpendLineTo(CurrentStatus.Text, "Initialized quiz with " + quiz.QuizLength + " questions. ");
             return quiz;
         }
@@ -115,13 +116,14 @@ namespace MondainDeploy
             _currentQuiz.IncrementCounts(false);
             foreach (var word in _currentQuiz.CurrentAnswerList)
             {
-                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, FormatMissedRightAnswer(word));
+                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, FormatMissedRightAnswer(GetWordWithLexiconSymbols(word)));
             }
             CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, "Question " + _currentQuiz.QuestionNumber + Embolden(" incorrect") + "!");
             MoveCurrentQuestionToAnswerHistory();
         }
         private void MoveCurrentQuestionToAnswerHistory()
         {
+            //todo: Add an option not to show incorrect responses in the answer history
             AnswerHistory.Text = PrependStringTo(AnswerHistory.Text, CurrentQuestionHistoryLabel.Text);
             ClearTextControl(CurrentQuestionHistoryLabel);
         }
@@ -149,10 +151,39 @@ namespace MondainDeploy
             }
         }
 
+
+        // todo: Decide whether best renamed to GetFormattedWord or kept like this
+        private string GetWordWithLexiconSymbols(string word)
+        {
+            // todo: rename CurrentQuizAnswerStatsList
+            foreach (var wd in _currentQuiz.CurrentQuizAnswerStatsList)
+            {
+                if (wd.Word == word)
+                {
+                    return wd.WordDisplayString;
+                }
+            }
+            return word;
+        }
+        //{
+        //    var alphagram = FullLexicon.AlphagramifyString(word);
+        //    foreach (var kvp in _currentQuiz.)
+        //    {
+                
+        //        if (kvp.Key == alphagram)
+        //        {
+        //            return kvp.
+        //        }
+        //    }
+        //    if (_currentQuiz.QuizAlphaToWords.(FullLexicon.AlphagramifyString(word))
+        //    return word;
+        
         protected void SubmitAnswerButton_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
                 return;
+
+            //todo: Move some or all of these if-options out to separate functions for clarity
             var submittedAnswer = TBQuizAnswer.Text.ToUpper();
             ClearTextControl(TBQuizAnswer);
 
@@ -166,9 +197,11 @@ namespace MondainDeploy
             }
             if (_currentQuiz.CurrentAnswerList.Contains(submittedAnswer))
             {
+                
                 _currentQuiz.SetWordAsCorrect(submittedAnswer);
                 _currentQuiz.CurrentAnswerList.Remove(submittedAnswer);
-                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, submittedAnswer);
+                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, 
+                    GetWordWithLexiconSymbols(submittedAnswer));
                 // todo: Look at whether UpdateTotalSolutionsLabelWhenCorrect should return a string or a label
                 var correctAnswerCount = _currentQuiz.GetBooleanAnswersThisQuestion()[0];
                 var incorrectAnswerCount = _currentQuiz.GetBooleanAnswersThisQuestion()[1];
@@ -176,13 +209,16 @@ namespace MondainDeploy
                     correctAnswerCount + incorrectAnswerCount, LabelTotalSolutions).Text;
             }
             else
-                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, Strike(submittedAnswer));
+                CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, Strike(GetWordWithLexiconSymbols(submittedAnswer)));
 
             if (_currentQuiz.CurrentAnswerList.Count != 0) return;
             CurrentQuestionHistoryLabel.Text = PrependLineTo(CurrentQuestionHistoryLabel.Text, "Question " + _currentQuiz.QuestionNumber + Embolden(" correct") + "!");
             MoveCurrentQuestionToAnswerHistory();
             MarkQuestionCorrect();
         }
+
+
+
         protected void MarkMissedButton_Click(object sender, EventArgs e)
         {
             MarkQuestionMissed();

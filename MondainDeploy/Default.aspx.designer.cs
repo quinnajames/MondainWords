@@ -49,6 +49,15 @@ namespace MondainDeploy {
         protected global::System.Web.UI.WebControls.CheckBox BlankBingoCheck;
         
         /// <summary>
+        /// LexSymbolCheck control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox LexSymbolCheck;
+        
+        /// <summary>
         /// MinDD control.
         /// </summary>
         /// <remarks>

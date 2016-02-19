@@ -6,10 +6,11 @@ using System.Linq;
 namespace MondainDeploy
 {
     // todo: Come up with a better class name than "FullLexicon."
+    // todo: Document this. Seriously.
     public class FullLexicon
     {
 
-
+        // todo: check if WTM is words or alphagrams; if the latter, rename
         public Dictionary<string, WordData> WordsToMetadata { get; set; }
         public Dictionary<string, List<string>> AlphagramsToWords { get; set; }
 
@@ -38,6 +39,18 @@ namespace MondainDeploy
             WordsToMetadata = lexWrapper.WordsToMetadata;
             AlphagramsToWords = InitAlphagramsToWords(WordsToMetadata);
             MaxProbPerWord = InitMaxProbPerWord();
+        }
+        
+        public string GetLexiconSymbolsForWord(string word)
+        {
+            word = word.ToUpper();
+            string lexsymbols = "";
+            if (WordsToMetadata.ContainsKey(word) && WordsToMetadata[word].IsNew)
+            {
+                lexsymbols += "+";
+            }
+            return lexsymbols;
+
         }
 
         private Dictionary<string, List<string>> InitAlphagramsToWords(Dictionary<string, WordData> wordsToMeta)
