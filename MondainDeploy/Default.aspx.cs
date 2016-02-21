@@ -161,11 +161,17 @@ namespace MondainDeploy
         // todo: Decide whether best renamed to GetFormattedWord or kept like this
         private string GetWordWithLexiconSymbols(string word)
         {
-            if (_fullLexicon != null) return _fullLexicon.GetLexiconSymbolsForWord(word);
-            return "[NL]" + word;
             // todo: rename CurrentQuizAnswerStatsList
+            foreach (var wd in _currentQuiz.CurrentQuizAnswerStatsList)
+            {
+                if (wd.Word == word)
+                {
+                    return wd.WordDisplayString;
+                }
+            }
+            return word;
         }
-
+        
         protected void SubmitAnswerButton_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
