@@ -51,9 +51,7 @@ namespace MondainDeploy
             CurrentQuizAnswerStatsList = new List<QuizAnswer>();
             foreach (var str in CurrentAnswerList)
             {
-                CurrentQuizAnswerStatsList.Add(showLexSymbols
-                    ? new QuizAnswer(str, false, str + "+")
-                    : new QuizAnswer(str, false));
+                CurrentQuizAnswerStatsList.Add(new QuizAnswer(str, false));
             }
 
         }
@@ -78,6 +76,10 @@ namespace MondainDeploy
             CurrentAnswerWordCount = QuizAlphaToWords[QuestionNumber - 1].Value.Count;
 
             CurrentQuizAnswerStatsList = new List<QuizAnswer>();
+
+
+            
+
             foreach (var str in CurrentAnswerList)
             {
                 CurrentQuizAnswerStatsList.Add(new QuizAnswer(str, false));
@@ -137,17 +139,17 @@ namespace MondainDeploy
             IsCorrect = isCorrect;
         }
 
-        /// <summary>
-        /// QuizAnswer 3-argument constructor. For use when WordDisplayString should be specified explicitly.
-        /// </summary>
-        /// <param name="word">An individual solution to an alphagram.</param>
-        /// <param name="isCorrect">Whether the word has been answered correctly.</param>
-        /// <param name="wordDisplayString">Word with lexicon symbols in use.</param>
-        public QuizAnswer(string word, bool isCorrect, string wordDisplayString)
-        {
-            Word = word;
-            WordDisplayString = wordDisplayString;
-            IsCorrect = isCorrect;
-        }
+        ///// <summary>
+        ///// QuizAnswer 3-argument constructor. For use when WordDisplayString should be specified explicitly.
+        ///// </summary>
+        ///// <param name="word">An individual solution to an alphagram.</param>
+        ///// <param name="isCorrect">Whether the word has been answered correctly.</param>
+        ///// <param name="wordDisplayString">Word with lexicon symbols in use.</param>
+        //public QuizAnswer(string word, bool isCorrect, string wordDisplayString)
+        //{
+        //    Word = word;
+        //    WordDisplayString = wordDisplayString;
+        //    IsCorrect = isCorrect;
+        //}
     }
 }
