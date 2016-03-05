@@ -6,7 +6,6 @@ using System.Linq;
 namespace MondainDeploy
 {
     // todo: Come up with a better class name than "FullLexicon."
-    // todo: Document this. Seriously.
     public class FullLexicon
     {
 
@@ -26,6 +25,8 @@ namespace MondainDeploy
 
         // todo: Make this a derived class so that it can inherit from the second FullLexicon.
         // Among other things this will allow swerving of the two lines of duplicated code.
+
+  
         public FullLexicon(string inputPath)
         {
             WordsToMetadata = InitWordsToMetadata(new Dictionary<string, WordData>(), inputPath);
@@ -34,6 +35,10 @@ namespace MondainDeploy
         }
 
 
+        ///<summary>
+        ///Create new lexicon from a LexTableWrapper object, which takes care of creating WordsToMetadata.
+        ///AlphagramsToWords and MaxProbPerWord are initialized with FL functions.
+        ///</summary>
         public FullLexicon(LexTableWrapper lexWrapper)
         {
             WordsToMetadata = lexWrapper.WordsToMetadata;
