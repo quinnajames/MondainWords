@@ -171,18 +171,23 @@ namespace MondainDeploy
             }
             return word;
         }
-        
+
+        // todo: Redundancy check on this
+        protected void ClearQuestionHistoryOnFirstSubmit()
+        {
+            ClearTextControl(CurrentQuestionHistoryLabel);
+        }
+
         protected void SubmitAnswerButton_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
                 return;
 
-            //todo: Move some or all of these if-options out to separate functions for clarity
             var submittedAnswer = TBQuizAnswer.Text.ToUpper();
             ClearTextControl(TBQuizAnswer);
 
             if (CurrentQuestionHistoryLabel.Text == Constants.AnswerSetDefaultText)
-                ClearTextControl(CurrentQuestionHistoryLabel);
+                ClearQuestionHistoryOnFirstSubmit();
 
             if (_currentQuiz.Finished)
             {
