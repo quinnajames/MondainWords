@@ -172,11 +172,7 @@ namespace MondainDeploy
             return word;
         }
 
-        // todo: Redundancy check on this
-        protected void ClearQuestionHistoryOnFirstSubmit()
-        {
-            ClearTextControl(CurrentQuestionHistoryLabel);
-        }
+
 
         protected void SubmitAnswerButton_Click(object sender, EventArgs e)
         {
@@ -186,8 +182,6 @@ namespace MondainDeploy
             var submittedAnswer = TBQuizAnswer.Text.ToUpper();
             ClearTextControl(TBQuizAnswer);
 
-            if (CurrentQuestionHistoryLabel.Text == Constants.AnswerSetDefaultText)
-                ClearQuestionHistoryOnFirstSubmit();
 
             if (_currentQuiz.Finished)
             {

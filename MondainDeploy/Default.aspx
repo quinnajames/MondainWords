@@ -121,7 +121,7 @@
 
                     <asp:Label ID="LabelCurrentQuestion" runat="server" Text="#0: none" CssClass="h4"/><br/>
                                 Total solutions: <asp:Label ID="LabelTotalSolutions" runat="server" Text=""></asp:Label><br/>
-                    Correct answers:<br/> <asp:Label ID="CurrentQuestionHistoryLabel" runat="server" Text=""></asp:Label>        
+                    Responses:<br/> <asp:Label ID="CurrentQuestionHistoryLabel" runat="server" Text=""></asp:Label>        
 
                                      <asp:Panel ID="Panel1" runat="server" defaultbutton="BTAnswer">
                                          
