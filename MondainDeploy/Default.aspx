@@ -119,7 +119,7 @@
                 <div class="panel-body">
 
 
-                    <asp:Label ID="LabelCurrentQuestion" runat="server" Text="#0: none" CssClass="h4"/><br/>
+                    <asp:Label ID="LabelCurrentQuestion" runat="server" Text="#0: none" CssClass="h3"/><br/>
                                 Total solutions: <asp:Label ID="LabelTotalSolutions" runat="server" Text=""></asp:Label><br/>
                     Responses:<br/> <asp:Label ID="CurrentQuestionHistoryLabel" runat="server" Text=""></asp:Label>        
 
