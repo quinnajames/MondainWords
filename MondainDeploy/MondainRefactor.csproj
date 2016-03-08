@@ -149,6 +149,7 @@
     <Content Include="Scripts\ProgressBarScript.js" />
     <Content Include="Scripts\TooltipScript.js" />
     <Content Include="Style_Sheets\MondainDeployBSTheme.css" />
+    <Content Include="Style_Sheets\MondainTextStyling.css" />
     <Content Include="Style_Sheets\ProgressBarStyle.css" />
     <Content Include="Style_Sheets\TooltipStyle.css" />
     <Content Include="Web.config">

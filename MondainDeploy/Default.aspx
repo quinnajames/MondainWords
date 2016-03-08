@@ -30,6 +30,7 @@
     <script type="text/javascript" src="Scripts/ProgressBarScript.js"></script>
     <link href="Style_Sheets/TooltipStyle.css" rel="stylesheet" />
     <script type="text/javascript" src="Scripts/TooltipScript.js"></script>
+    <link href="Style_Sheets/MondainTextStyling.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -121,7 +122,7 @@
 
                     <asp:Label ID="LabelCurrentQuestion" runat="server" Text="#0: none" CssClass="h3"/><br/>
                                 Total solutions: <asp:Label ID="LabelTotalSolutions" runat="server" Text=""></asp:Label><br/>
-                    Responses:<br/> <asp:Label ID="CurrentQuestionHistoryLabel" runat="server" Text=""></asp:Label>        
+                    Responses:<br/> <div class="columnanswers"><asp:Label ID="CurrentQuestionHistoryLabel" runat="server" Text=""></asp:Label> </div>       
 
                                      <asp:Panel ID="Panel1" runat="server" defaultbutton="BTAnswer">
                                          
