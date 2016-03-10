@@ -69,7 +69,6 @@ namespace MondainDeploy
                     string selectSQL = "SELECT Word, Alphagram FROM WordsToAlphagrams";
                     SqlConnection sqlCon = new SqlConnection(connectionString.ToString());
                     SqlCommand sqlCmd = new SqlCommand(selectSQL, sqlCon);
-                    //SqlDataReader reader;
                     DataSet dataWordsToAlpha = new DataSet();
                     var nameOfTable = "WordsToAlphagrams";
 

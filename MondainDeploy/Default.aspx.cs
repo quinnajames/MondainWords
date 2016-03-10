@@ -224,7 +224,6 @@ namespace MondainDeploy
             _currentQuiz.Finished = true;
             CurrentStatus.Text = PrependLineTo(CurrentStatus.Text, quizFinishedText);
             LabelCurrentQuestion.Text = quizFinishedText;
-            // todo: add params override for CTC
             ClearTextControl(LabelTotalSolutions);
             ClearTextControl(CurrentQuestionHistoryLabel);
         }

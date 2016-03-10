@@ -5,11 +5,9 @@ using System.Linq;
 
 namespace MondainDeploy
 {
-    // todo: Come up with a better class name than "FullLexicon."
     public class FullLexicon
     {
 
-        // todo: check if WTM is words or alphagrams; if the latter, rename
         public Dictionary<string, WordData> WordsToMetadata { get; set; }
         public Dictionary<string, List<string>> AlphagramsToWords { get; set; }
 
@@ -78,7 +76,6 @@ namespace MondainDeploy
             return Enumerable.Range(2, 14).ToList().ToDictionary(x => x, 
             // and values representing how many alphagrams there are at each length in the dictionary.
                 x => new List<string>(from kvp in AlphagramsToWords.ToList() where kvp.Key.Length == x select kvp.Key).Count);
-            // todo: Could bake this into the DB, as it's constant values per lexicon.
         }
 
         private Dictionary<string, WordData> InitWordsToMetadata(Dictionary<string, WordData> wordsToMeta, string path)
@@ -97,7 +94,7 @@ namespace MondainDeploy
                         {
                             word = word.TrimEnd('+');
                             // IsNew is a token not being used right now. It's indicated by that + being trimmed out.
-                            // todo: Add option to show the IsNew token
+                            // todo: Continue working on IsNew feature
                             tempWordData.IsNew = true;
                         }
                         else
