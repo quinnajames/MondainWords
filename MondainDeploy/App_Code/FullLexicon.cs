@@ -119,11 +119,17 @@ namespace MondainDeploy
 
         } // end Lexicon.FillWordsToAlphagrams
 
+        /// <summary>
+        /// Custom getter for total amount of words in the lexicon loaded.
+        /// </summary>
         public int GetWordCount()
         {
             return WordsToMetadata.Count;
         }
 
+        /// <summary>
+        /// Custom getter for total amount of alphagrams in the lexicon loaded.
+        /// </summary>
         public int GetAlphagramCount()
         {
             return AlphagramsToWords.Count;
