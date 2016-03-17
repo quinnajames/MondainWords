@@ -143,12 +143,6 @@ namespace MondainDeploy
         ///Todo: fix this.
 
 
-        ///Also todo: a less complicated chain for determining the maxProb.
-        ///Currently what happens is that in the code-behind file, if the user enters a meaningless maxProb (or minProb), it defaults to Constants.ProbabilityMaxDefault.
-        ///Then that default probability (which is a number chosen to be higher than the actual meaningful limit of maxProb) gets sent to this function.
-        ///This is all a bit inelegant.
-        ///Because of the way we get lists, it doesn't really matter if the maxProb is out of bounds to the right -- we're only ever comparing less than or equal to.
-        ///The only time we get errors is if the *minProb* is out of bounds to the right.
         public List<KeyValuePair<string, List<string>>> GetRandomQuizEntries(int returnsize, Random rnd, int minLength, int maxLength, int minProb, int maxProb)
         {
             // A minimum probability under 1 means the same thing as a minimum probability of 1.

@@ -10,8 +10,8 @@ namespace MondainDeploy
         public static readonly int WordLengthMinDefault = 7;
         public static readonly int WordLengthMaxDefault = 8;
         public static readonly int DefaultQuizLength = 10;
-        public static readonly int ProbabilityMinDefault = 1;
-        public static readonly int ProbabilityMaxDefault = 99999;
+        public const int ProbabilityMinDefault = 1;
+        public const int ProbabilityMaxDefault = 99999;
         public static readonly string AnswerSetDefaultText = "Answers displayed here";
         public static readonly string QuizAlreadyFinishedText = "Error: Quiz is already completed!";
     }
